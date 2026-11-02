@@ -1,0 +1,50 @@
+# Copy of boom-ubuntu:/home/boom-studios/compose/compose.yaml with PHP-FPM 8.3 (php service builds docker/release/php copied to ./php83)
+# boom-studios stack: studios.boomroom.by (migration plan, sections 04 and 05).
+# Same chain as on boom: Apache reads the site's .htaccess as it is and passes *.php to PHP-FPM 8.3.
+# Run as boom-studios:  docker compose -f ~/compose/compose.yaml up -d
+name: boom-studios
+
+services:
+  # PHP-FPM 8.3 (studios.boomroom.by repo: docker/release/php). Runs as container root, which is
+  # boom-studios on the host, so files PHP writes belong to boom-studios.
+  php:
+    build: ./php83
+    image: boom-studios-php:8.3.36
+    container_name: php
+    restart: unless-stopped
+    command: ["php-fpm", "--allow-to-run-as-root"]
+    # same paths inside as on boom
+    volumes:
+      - ../www/studios.boomroom.by:/var/www/www-root/data/www/studios.boomroom.by
+      - ../tmp/php:/var/www/www-root/data/bin-tmp
+      - /srv/boom-mysql:/var/run/mysqld
+      - /etc/localtime:/etc/localtime:ro
+    mem_limit: 256m
+    # under memory pressure the kernel kills PHP before MySQL
+    oom_score_adj: 500
+
+  apache:
+    build: ./apache
+    image: boom-studios-apache:2.4.68
+    container_name: apache
+    restart: unless-stopped
+    depends_on:
+      - php
+    # Apache only reads the site; all writes come from PHP
+    volumes:
+      - ../www/studios.boomroom.by:/var/www/www-root/data/www/studios.boomroom.by:ro
+      - ../logs/apache:/var/log/apache2
+      - /etc/localtime:/etc/localtime:ro
+    # host nginx proxies to this port; the firewall lets only nginx and root connect
+    ports:
+      - "127.0.0.1:8104:80"
+    mem_limit: 64m
+
+# Fixed range: requests from host nginx arrive from the gateway 172.31.104.1, which Apache
+# trusts for the visitor's address (X-Real-IP).
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.31.104.0/24
+          gateway: 172.31.104.1
