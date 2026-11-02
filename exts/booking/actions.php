@@ -296,7 +296,7 @@
 						$cid = 0;
 					}
 					
-					if (!$room or $start < 0 or $start > 23 or $end < 0 or $end > 24 or ($start < 23 and $end <= $start) or !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+					if (!$room or $start < 0 or $start > 23 or $end < 0 or $end > 24 or !cnt(eventHours($start, $end)) or cnt(eventHours($start, $end)) > 12 or !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
 						header('HTTP/1.1 400 Bad Request');
 						exit;
 					}
@@ -324,9 +324,7 @@
 					$studio = loadObject("SELECT * FROM `studios` WHERE `id` = {$room->sid}");
 					
 					// Проверка на занятое время
-					$hours = array();
-					if ($start < 23) { for($h = $start; $h != $end; $h++) { $hours[] = $h; } }
-					else { $hours = array(23, 0, 1, 2, 3, 4, 5); }
+					$hours = eventHours($start, $end);
 					
 					$WHERE = "(".implode(' BETWEEN `start` AND (`end` -1) OR ', $hours)." BETWEEN `start` AND (`end` -1))";
 					

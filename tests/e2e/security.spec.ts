@@ -79,7 +79,7 @@ test.describe('public booking', () => {
     expect(ev.note).toContain('Anon &#039;Band&#039;');
 
     const started = Date.now();
-    await booking(request, { task: 'event', subtask: 'save', rid: 1, date, start: 20, end: 18, nm: 0, client_type: 1, client_name: 'x', client_phone: '1', cid: 0, eqs: '[]', price: '1' }, { status: 400 });
+    await booking(request, { task: 'event', subtask: 'save', rid: 1, date, start: 20, end: 20, nm: 0, client_type: 1, client_name: 'x', client_phone: '1', cid: 0, eqs: '[]', price: '1' }, { status: 400 });
     expect(Date.now() - started).toBeLessThan(5000);
 
     const eqs = await request.get(`/action.php?ext=booking&task=eqs&subtask=get&rid=1&date=${date}&start=20&end=18`, { timeout: 10_000 });

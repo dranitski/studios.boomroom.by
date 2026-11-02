@@ -2,12 +2,28 @@
 	
 	defined('access') or die ('no access');
 	
+	// Часы события: ночное (с 23) - 23..5, иначе от start до end, с переходом через полночь (22 -> 6)
+	function eventHours($start, $end) {
+		
+		$start = (int) $start; $end = (int) $end;
+		
+		if ($start >= 23) {
+			return array(23, 0, 1, 2, 3, 4, 5);
+		}
+		
+		$hours = array();
+		for ($h = $start, $n = 0; $h % 24 != $end % 24 and $n < 24; $h++, $n++) {
+			$hours[] = $h % 24;
+		}
+		
+		return $hours;
+	}
+	
 	// Массив свободных количества свободных инструментов
 	function getFreeEqs($equipments, $sid, $date, $start, $end, $weekly = false) {
 	
-		// часы вне суток или конец раньше начала дают бесконечный цикл ниже
 		$start = (int) $start; $end = (int) $end;
-		if ($start < 0 or $start > 23 or $end < 0 or $end > 24 or ($start < 23 and $end <= $start)) {
+		if ($start < 0 or $start > 23 or $end < 0 or $end > 24) {
 			return array();
 		}
 	
@@ -32,11 +48,9 @@
 			// Дневная
 			if ($event->start < 23) {
 				
-				while($event->start != $event->end) {
-				
-					$h = $event->start;
+				foreach (eventHours($event->start, $event->end) as $h) {
+					
 					foreach ($event_eqs as $id => $count) { $eqs_rent[$h][$id] += $count; }
-					$event->start++;
 				}
 			}
 			// Ночная
@@ -54,9 +68,7 @@
 		$eqs_free_all = array();
 		if ($start < 23) {
 			
-			while($start != $end) {
-					
-				$h = $start;
+			foreach (eventHours($start, $end) as $h) {
 				
 				foreach($equipments as $eq) {
 				
@@ -64,8 +76,6 @@
 					
 					$eqs_free_all[$eq->id][] = $ost;
 				}
-				
-				$start++;
 			}
 		}
 		else {
@@ -89,15 +99,8 @@
 	
 		$day = date('w', strtotime($event->date));
 		
-		$hours = array();
-		if ($event->start < 23) {
-			
-			for($h = $event->start; $h != $event->end; $h++) { $hours[] = $h; }
-		}
-		else {
-			
-			$hours = array(23, 0, 1, 2, 3, 4, 5);
-		}
+		$hours = eventHours($event->start, $event->end);
+		if (!$hours) return false;
 		
 		$WHERE = "(".implode(' BETWEEN `start` AND (`end` -1) OR ', $hours)." BETWEEN `start` AND (`end` -1))";
 		

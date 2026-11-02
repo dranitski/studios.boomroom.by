@@ -38,7 +38,7 @@
 					
 					if ($start < 23) {
 					
-						while ($template = loadObject("SELECT * FROM `event_templates` WHERE `rid` = {$rid} AND `date` = '0000-00-00' AND `day` = {$day} AND `start` = {$end} ORDER BY `date` DESC")) {
+						while ($end > 0 and $end < 24 and $template = loadObject("SELECT * FROM `event_templates` WHERE `rid` = {$rid} AND `date` = '0000-00-00' AND `day` = {$day} AND `start` = {$end} ORDER BY `date` DESC")) {
 						
 							// Проверка на существования события
 							if (loadResult("SELECT `id` FROM `event_weekly` WHERE `rid` = {$rid} AND `day` = {$day} AND `start` = {$template->start}")) break;
@@ -92,7 +92,7 @@
 							$client->dis = 0;
 							if ($client->card) {
 								
-								$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = {$client->id} AND `state` = 2");
+								$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = ".(int) $client->id." AND `state` = 2");
 								$client->dis = getClientLevel($count_events, 1);
 							}
 							
@@ -205,7 +205,7 @@
 					
 						$this_end = $template->end;
 					
-						while ($template = loadObject("SELECT * FROM `event_templates` WHERE `rid` = {$rid} AND `date` = '0000-00-00' AND `day` = {$day} AND `start` = {$this_end} ORDER BY `date` DESC")) {
+						while ($this_end > 0 and $this_end < 24 and $template = loadObject("SELECT * FROM `event_templates` WHERE `rid` = {$rid} AND `date` = '0000-00-00' AND `day` = {$day} AND `start` = {$this_end} ORDER BY `date` DESC")) {
 						
 							// Проверка на существования события
 							if (loadResult("SELECT `id` FROM `event_weekly` WHERE `rid` = {$rid} AND `day` = '{$day}' AND `start` = {$template->start}")) break;
@@ -255,7 +255,7 @@
 						
 						$client = loadObject("SELECT * FROM `clients` WHERE `id` = {$cid}");
 						$contacts = loadObjectList("SELECT * FROM `client_contacts` WHERE `cid` = {$cid}");
-						$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = {$client->id} AND `state` = 2");
+						$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = ".(int) $client->id." AND `state` = 2");
 						
 						$discount = ($client->card) ? "Скидка ".getClientLevel($count_events, 1)."%" : "Без скидки";
 						if ($client->type == 3) { $discount = "Скидка 30%"; }
@@ -281,7 +281,7 @@
 							// $thisclient->dis = 0;
 							if ($thisclient->card) {
 								
-								$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = {$thisclient->id} AND `state` = 2");
+								$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = ".(int) $thisclient->id." AND `state` = 2");
 								$thisclient->dis = ($thisclient->dis > 0) ? $thisclient->dis : getClientLevel($count_events, 1);
 							}
 							

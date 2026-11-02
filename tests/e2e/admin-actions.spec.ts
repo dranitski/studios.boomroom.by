@@ -76,6 +76,17 @@ test.describe('schedule (table)', () => {
     expect((await query('SELECT `nodates` FROM `event_weekly` WHERE `id` = ?', [w.id]))[0].nodates).toContain(later);
   });
 
+  test('overnight event 22 -> 6 does not hang the equipment calculation', async ({ request }) => {
+    test.setTimeout(20_000);
+    const date = ymd(daysFromNow(12));
+    const id = await insertEvent({ rid: 1, date, start: 22, end: 6 });
+    await execute('UPDATE `events` SET `eqs` = ? WHERE `id` = ?', [JSON.stringify([{ id: 1, count: 1 }]), id]);
+    await action(request, admin('table', 'eqs', { option: 'get', rid: 2, date, start: 10, end: 12 }));
+    await action(request, admin('table', 'event', { option: 'get', id }));
+    const page = await request.get(`/admin/tablerooms?date=${date.split('-').reverse().join('.')}`);
+    expect(page.status()).toBe(200);
+  });
+
   test('equipment availability, client lookup, requests', async ({ request }) => {
     const cid = await insertClient({ name: 'Lookup Band', phone: '+375297778899' });
     await action(request, admin('table', 'eqs', { option: 'get', rid: 1, date: ymd(daysFromNow(1)), start: 10, end: 12 }));
