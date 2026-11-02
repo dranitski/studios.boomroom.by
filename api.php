@@ -23,6 +23,13 @@
 	
 	switch(getVar('task', 'get')) {
 		
+		case 'cleanLog':
+			
+			// Хранение журнала действий - 3 года
+			runSql("DELETE FROM `log` WHERE `created` < NOW() - INTERVAL 3 YEAR");
+			
+		break;
+		
 		case 'createEventsToday':
 			
 			$event_weekly = loadObjectList("SELECT * FROM `event_weekly` WHERE `day` = {$w} AND `rid` != 10 AND `rid` != 11");
@@ -68,7 +75,6 @@
 					$sync = true;
 				}
 				
-				// if ($sync) { toSync(1); }
 			}
 			
 		break;
@@ -116,7 +122,6 @@
 					// echo "{$event->start}:{$min} - {$event->end}:{$min} | {$state}<br/>";
 				}
 				
-				// toSync(1);
 			}
 			
 		break;

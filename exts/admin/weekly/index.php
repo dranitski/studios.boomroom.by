@@ -66,7 +66,7 @@
 					$start = $event->start;
 					$end = $event->end;
 					
-					$client = ($event->cid == 0) ? "Неопределенный" : loadResult("SELECT `name` FROM `clients` WHERE `id` = {$event->cid}");
+					$client = ($event->cid == 0) ? "Неопределенный" : clientField($event->cid, 'name');
 					
 					if ($event->day == $day and $start == $h) {
 						

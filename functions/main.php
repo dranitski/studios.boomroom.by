@@ -388,59 +388,66 @@
 	}
 	
 	// Постановка задачи на синхронизацию данных
-	function toSync($type = 0) {
+	// Число проведенных репетиций клиента (для уровня скидки); все клиенты считаются одним запросом за запрос страницы
+	function clientEventsCount($cid) {
 		
-		return false;
-	
-		if (admin == '') return false;
+		static $counts = null;
 		
-		if (in_array($type, array(1,2,3,4,5,6,7))) {
-			
-			$sync = loadObject("SELECT * FROM `sync` WHERE `type` = {$type}");
-			
-			$update = false;
-			
-			switch($sync->state) {
-				
-				case 0: case 2: $update = true; break;
-				case 1: if (strtotime($sync->completed) - strtotime($sync->updated) > 300) { $update = true; } break;
-			}
-			
-			if ($update) {
-				
-				runSql("UPDATE `sync` SET `state` = 0, `updated` = NOW() WHERE `type` = {$type}");
+		if ($counts === null) {
+			$counts = array();
+			foreach (loadAssocList("SELECT `cid`, COUNT(*) AS `n` FROM `events` WHERE `state` = 2 AND `cid` > 0 GROUP BY `cid`") as $row) {
+				$counts[$row['cid']] = (int) $row['n'];
 			}
 		}
+		
+		return isset($counts[(int) $cid]) ? $counts[(int) $cid] : 0;
 	}
 	
-	/*
-		СИНХРОНИЗАЦИЯ ЗАПИСИ
+	// Имя/карта клиента; все клиенты читаются одним запросом за запрос страницы
+	function clientField($cid, $field) {
 		
-		Таблица: sync_tasks
-		Поля: id, type, tablename, item (id записи), created, state (0 - ожидание, 1 - выполняется, 2 - завершено)
+		static $clients = null;
 		
-		$type = 0 - удаление
-		$type = 1 - добавление
-		$type = 2 - обновление
-		$table - таблица бд, например `clients`
-		$id = id записи
-		
-	*/
-	function toSyncItem($type = 0, $table = null, $id = 0) {
-
-	    /* ВЫКЛЮЧАЕМ С 30.10.2020
-		if (admin == '') return false;
-
-		// Проверка, есть ли ужэ такая задача
-
-		if (!loadResult("SELECT `id` FROM `sync_tasks` WHERE `type` = {$type} AND `tablename` = '{$table}' AND `item` = {$id} AND `state` = 0")) {
-
-			runSql("INSERT INTO `sync_tasks` (`type`, `tablename`, `item`) VALUES ({$type}, '{$table}', {$id})");
+		if ($clients === null) {
+			$clients = array();
+			foreach (loadAssocList("SELECT `id`, `name`, `card` FROM `clients`") as $row) {
+				$clients[$row['id']] = $row;
+			}
 		}
-	    */
-
+		
+		return isset($clients[(int) $cid][$field]) ? $clients[(int) $cid][$field] : null;
 	}
-
+	
+	// Сумма неоплаченного по прошедшим событиям клиента (с 01.07.2017)
+	function clientDebt($cid) {
+		
+		static $debts = null;
+		
+		if ($debts === null) {
+			$debts = array();
+			foreach (loadAssocList("SELECT `cid`, SUM(`price` - `pay`) AS `debt` FROM `events` WHERE (`price` - `pay`) > 0 AND `state` > 1 AND `date` >= '2017-07-01' GROUP BY `cid`") as $row) {
+				$debts[$row['cid']] = (float) $row['debt'];
+			}
+		}
+		
+		return isset($debts[(int) $cid]) ? $debts[(int) $cid] : 0;
+	}
+	
+	// Сумма погашений долгов клиента (incomes по его событиям)
+	function clientPaid($cid) {
+		
+		static $paid = null;
+		
+		if ($paid === null) {
+			$paid = array();
+			foreach (loadAssocList("SELECT e.`cid`, SUM(i.`sum`) AS `paid` FROM `incomes` AS i JOIN `events` AS e ON e.`id` = i.`eid` GROUP BY e.`cid`") as $row) {
+				$paid[$row['cid']] = (float) $row['paid'];
+			}
+		}
+		
+		return isset($paid[(int) $cid]) ? $paid[(int) $cid] : 0;
+	}
+	
 	// Имя студии
 	function getStudioName($id = 0) {
 		

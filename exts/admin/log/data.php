@@ -2,6 +2,8 @@
 
 	defined('access') or die ('no access');
 	
+	define('logLimit', 5000);
+	
 	$orderby	= getVar('orderby', 'get');
 	$sort		= getVar('sort', 'get');
 	
@@ -46,9 +48,13 @@
 	$sql = "SELECT *" .
 			" FROM `log`".
 			"{$where}".
-			" ORDER BY {$orderby}";
+			" ORDER BY {$orderby}".
+			" LIMIT ".(logLimit + 1);
 	
+	// Длинный период выдавал десятки мегабайт HTML: показываем первые logLimit записей
 	$log = loadObjectList($sql);
+	$log_cut = (cnt($log) > logLimit);
+	if ($log_cut) { array_pop($log); }
 	
 	// Устанавливаем HEAD
 	$title = "Журнал действий";

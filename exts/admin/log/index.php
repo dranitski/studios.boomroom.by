@@ -33,6 +33,7 @@
 	</div>
 	
 	<div id="log">
+	<?php if ($log_cut) { ?><p><b>Показаны первые <?php echo logLimit; ?> записей, уточните период.</b></p><?php } ?>
 	<?php if (cnt($log)) { ?>
 	<?php foreach ($log as $item) { ?>
 	<div class="item">

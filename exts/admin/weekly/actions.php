@@ -151,14 +151,12 @@
 					if ($id) {
 						
 						runSql("UPDATE `event_weekly` SET `end` = {$end}, `cid` = {$cid}, `nm` = {$nm}, `note` = '{$note}', `eqs` = '{$eqs}', `price_eqs` = '{$price_eqs}', `price` = '{$price}', `dis` = '{$dis}' WHERE `id` = {$id}");
-						toSyncItem(2, 'event_weekly', $id);
 					}
 					else {
 						
 						runSql("INSERT INTO `event_weekly` (`rid`, `day`, `start`, `end`, `cid`, `nm`, `note`, `eqs`, `price_eqs`, `price`, `dis`) VALUES ({$rid}, '{$day}', '{$start}', '{$end}', '{$cid}', '{$nm}', '{$note}', '{$eqs}', '{$price_eqs}', '{$price}', '{$dis}')");
 						$event_id = insertId();
 						$id = $event_id;
-						toSyncItem(1, 'event_weekly', $id);
 					}
 					
 					$msg = ($event_id) ? "Событие добавлено" : "Изменения сохранены";
@@ -372,7 +370,6 @@
 					$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `event_weekly` AS a WHERE a.`id` = {$id}");
 					
 					runSql("DELETE FROM `event_weekly` WHERE `id` = {$id}");
-					toSyncItem(0, 'event_weekly', $id);
 					
 					$_SESSION['msg'] = "Постоянное событие удалено"; $_SESSION['msg_type'] = 'ok';
 					

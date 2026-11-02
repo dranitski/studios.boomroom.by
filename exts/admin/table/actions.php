@@ -188,7 +188,6 @@
 						
 						runSql("INSERT INTO `clients` (`type`, `name`) VALUES ({$client_type}, '{$client_name}')");
 						$cid = insertId();
-						toSyncItem(1, 'clients', $cid);
 						
 						if ($client_name) {
 						
@@ -207,7 +206,6 @@
 							$contacts = json_encode($contacts, JSON_UNESCAPED_UNICODE);
 							runSql("UPDATE `clients` SET `contacts` = '{$contacts}' WHERE `id` = {$cid}");
 							
-							toSyncItem(1, 'client_contacts', $contact_id);
 						}
 							
 						// Журнал
@@ -220,7 +218,6 @@
 						$SETSTATE = ($apply == 1) ? ", `state` = 0" : "";
 						
 						runSql("UPDATE `events` SET `end` = {$end}, `cid` = {$cid}, `nm` = {$nm}, `note` = '{$note}', `eqs` = '{$eqs}', `price_eqs` = '{$price_eqs}', `price` = '{$price}', `pay_type` = '{$pay_type}', `dis` = '{$dis}', `p` = '{$p}', `free` = '{$free}'{$SETSTATE} WHERE `id` = {$id}");
-						toSyncItem(2, 'events', $id);
 					}
 					else {
 						
@@ -229,7 +226,6 @@
 						$state = (strtotime("{$date} {$end}:00") < time()) ? 2 : 0;
 						runSql("INSERT INTO `events` (`rid`, `date`, `start`, `end`, `cid`, `nm`, `note`, `eqs`, `price_eqs`, `price`, `pay_type`, `dis`, `p`, `free`, `state`) VALUES ({$rid}, '{$date}', '{$start}', '{$end}', '{$cid}', '{$nm}', '{$note}', '{$eqs}', '{$price_eqs}', '{$price}', '{$pay_type}', '{$dis}', {$p}, {$free}, {$state})"); $event_id = insertId();
 						$id = $event_id;
-						toSyncItem(1, 'events', $event_id);
 						/* ВРЕМЕННО */
 					}
 					
@@ -578,7 +574,6 @@
 					$id = getInt('id', 'post');
 					
 					runSql("UPDATE `events` SET `state` = 0 WHERE `id` = {$id}");
-					toSyncItem(2, 'events', $id);
 					
 					$_SESSION['msg'] = "Событие подтверждено"; $_SESSION['msg_type'] = 'ok';
 					?>
@@ -602,7 +597,6 @@
 					$pay = str_replace(',', '.', getVar('pay', 'post'));
 					
 					runSql("UPDATE `events` SET `pay` = '{$pay}', `pay_date` = NOW() WHERE `id` = {$id}");
-					toSyncItem(2, 'events', $id);
 					
 					echo getMsg("Сумма оплаты сохранена", "ok", "location.assign('/admin/tablerooms');"); 
 					
@@ -620,7 +614,6 @@
 					$note = getVar('note', 'post');
 					
 					runSql("UPDATE `events` SET `note` = '{$note}' WHERE `id` = {$id}");
-					toSyncItem(2, 'events', $id);
 					
 					echo getMsg("Комментарий сохранен", "ok", ""); 
 					
@@ -642,7 +635,6 @@
 					$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 					
 					runSql("DELETE FROM `events` WHERE `id` = {$id}");
-					toSyncItem(0, 'events', $id);
 					
 					$_SESSION['msg'] = "Событие удалено"; $_SESSION['msg_type'] = 'ok';
 					
@@ -671,7 +663,6 @@
 					$price = round(($event_price / 100 * 25), 2);
 					
 					runSql("UPDATE `events` SET `state` = '{$state}', `price` = '{$price}', `price_eqs` = 0, `eqs` = '[]' WHERE `id` = {$id}");
-					toSyncItem(2, 'events', $id);
 					
 					// Исключение из постоянки
 					$item = loadObject("SELECT * FROM `events` WHERE `id` = {$id}");
@@ -687,7 +678,6 @@
 						$nodates = implode(",", $nodates);
 						
 						runSql("UPDATE `event_weekly` SET `nodates` = '{$nodates}' WHERE `id` = {$weekly->id}");
-						toSyncItem(2, 'event_weekly', $weekly->id);
 					}
 					
 					$_SESSION['msg'] = "Статус события изменен"; $_SESSION['msg_type'] = 'ok';
@@ -946,7 +936,6 @@
 					$sql .= ")";
 					
 					runSql($sql); $event_id = insertId();
-					toSyncItem(1, 'events', $event_id);
 					
 					$_SESSION['msg'] = "Событие сохранено"; $_SESSION['msg_type'] = 'ok';
 					?>location.reload();<?php
@@ -973,7 +962,6 @@
 					$nodates = implode(",", $nodates);
 					
 					runSql("UPDATE `event_weekly` SET `nodates` = '{$nodates}' WHERE `id` = {$id}");
-					toSyncItem(2, 'event_weekly', $id);
 					
 					$_SESSION['msg'] = "Это событие исключено"; $_SESSION['msg_type'] = 'ok';
 					?>location.reload();<?php
@@ -1196,7 +1184,6 @@
 					$id = getInt('id', 'post');
 					
 					runSql("UPDATE `events` SET `state` = 0 WHERE `id` = {$id}");
-					toSyncItem(2, 'events', $id);
 					
 					echo getMsg("Заявка подтверждена", "ok", ""); 
 					?>
@@ -1223,7 +1210,6 @@
 					$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 					
 					runSql("DELETE FROM `events` WHERE `id` = {$id}");
-					toSyncItem(0, 'events', $id);
 					
 					echo getMsg("Заявка отклонена", "error", ""); 
 					?>
@@ -1246,35 +1232,6 @@
 		
 		break;
 		
-		case 'sync':
-			
-			switch ($option) {
-	
-				case 'check':
-					
-					if (admin == '') {
-						
-						$count_tasks = (int) json_decode(file_get_contents("http://boomroom.by/api.php?task=getCountTasks"));
-						
-						if ($count_tasks > 0) {
-							
-						?>
-						if ($('#sync').is(':hidden')) { $('#sync').show(); }
-						$.ajax({ url: '/sync.php', type: 'post', data: {}, dataType: 'script' });
-						$('#sync').data('count', '<?php echo $count_tasks; ?>');
-						<?php
-						}
-						else {
-						?>
-						$('#sync').hide();
-						<?php
-						}
-					}
-					
-				break;
-			}
-			
-		break;
 	}
 	
 	

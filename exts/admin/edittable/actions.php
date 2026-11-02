@@ -121,16 +121,13 @@
 					if ($update) {
 						
 						runSql("UPDATE `event_templates` SET `date` = '{$date}', `end` = {$end}, `price` = '{$price}' WHERE `id` = {$id}");
-						toSyncItem(2, 'event_templates', $id);
 					}
 					else {
 						
 						runSql("INSERT INTO `event_templates` (`rid`, `date`, `day`, `start`, `end`, `price`) VALUES ({$rid}, '{$date}', {$day}, {$start}, {$end}, '{$price}')");
 						$id = insertId();
-						toSyncItem(1, 'event_templates', $id);
 					}
 					
-					// toSync(3);
 				
 				break;
 				
@@ -139,9 +136,7 @@
 					$id = getInt('id', 'post');
 				
 					runSql("DELETE FROM `event_templates` WHERE `id` = {$id}");
-					toSyncItem(0, 'event_templates', $id);
 					
-					// toSync(3);
 				
 				break;
 			}

@@ -14,7 +14,6 @@
 			$pay = getVar('pay', 'post');
 			
 			runSql("UPDATE `events` SET `pay` = '{$pay}' WHERE `id` = {$id}");
-			toSyncItem(2, 'events', $id);
 			
 			$event = loadObject("SELECT * FROM `events` WHERE `id` = {$id}");
 			
@@ -30,7 +29,6 @@
 				
 				// Записываем в доп.доход
 				runSql("INSERT INTO `incomes` (`sid`, `aid`, `name`, `sum`, `date`, `created`) VALUES (1, 1, '{$name}', '{$pay}', NOW(), NOW())"); $income_id = insertId();
-				toSyncItem(1, 'incomes', $income_id);
 			}
 			
 			echo getMsg("Платеж сохранен", "ok", "location.reload();");
@@ -70,14 +68,12 @@
 				runSql("INSERT INTO `incomes` (`sid`, `aid`, `eid`, `name`, `sum`, `date`, `created`) VALUES ({$event->sid}, 1, {$id}, '".dbEscape($string)."', '{$pay}', NOW(), NOW())");
 				
 				$id = insertId();
-				toSyncItem(1, 'incomes', $id);
 			// }
 			// else {
 				
 				// $pay += $event->pay;
 				// runSql("UPDATE `events` SET `pay` = '{$pay}' WHERE `id` = {$id}");
 				
-				// toSyncItem(2, 'events', $id);
 			// }
 			
 			// Журнал
@@ -95,7 +91,6 @@
 			$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 			
 			runSql("DELETE FROM `events` WHERE `id` = {$id}");
-			toSyncItem(0, 'events', $id);
 			
 			// Журнал
 			$date = date('d.m.Y', strtotime($event->date));

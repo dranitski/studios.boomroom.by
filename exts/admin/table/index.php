@@ -84,22 +84,22 @@
 					
 					if ($event->day == $day and $start == $h and in_array($date, $nodates) == false) {
 						
-						$client = ($event->cid == 0) ? "Неопределенный" : loadResult("SELECT `name` FROM `clients` WHERE `id` = {$event->cid}");
+						$client = ($event->cid == 0) ? "Неопределенный" : clientField($event->cid, 'name');
 						
 						$debt = 0; $card = null;
 						if ($event->cid > 0) {
 							
-							$debt = round(loadResult("SELECT SUM(`price` - `pay`) FROM `events` WHERE (`price` - `pay`) > 0 AND `cid` = {$event->cid} AND `state` > 1 AND `date` >= '2017-07-01'"), 2);
+							$debt = round(clientDebt($event->cid), 2);
 							
 							if ($debt > 0) {
 								
-								$paid = loadResult("SELECT SUM(`sum`) FROM `incomes` WHERE `eid` IN (SELECT `id` FROM `events` WHERE `cid` = {$event->cid})");
+								$paid = clientPaid($event->cid);
 								$debt -= $paid;
 							}
 							
-							$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = {$event->cid} AND `state` = 2");
+							$count_events = clientEventsCount($event->cid);
 							$level = getClientLevel($count_events);
-							$card = loadResult("SELECT `card` FROM `clients` WHERE `id` = {$event->cid}");
+							$card = clientField($event->cid, 'card');
 							if ($card) { $client .= " [{$card}/{$level}]"; }
 						}
 						
@@ -128,24 +128,24 @@
 						
 						$dur = ($start < 23) ? $end - $start : 1;
 					
-						$client = ($event->cid == 0) ? "Неопределенный" : loadResult("SELECT `name` FROM `clients` WHERE `id` = {$event->cid}");
+						$client = ($event->cid == 0) ? "Неопределенный" : clientField($event->cid, 'name');
 						
 						$debt = 0; $card = null;
 						if ($event->cid > 0) {
 							
-							$debt = round(loadResult("SELECT SUM(`price` - `pay`) FROM `events` WHERE (`price` - `pay`) > 0 AND `cid` = {$event->cid} AND `state` > 1 AND `date` >= '2017-07-01'"), 2);
+							$debt = round(clientDebt($event->cid), 2);
 							
 							if ($debt > 0) {
 								
-								$paid = loadResult("SELECT SUM(`sum`) FROM `incomes` WHERE `eid` IN (SELECT `id` FROM `events` WHERE `cid` = {$event->cid})");
+								$paid = clientPaid($event->cid);
 								$debt -= $paid;
 								
 								$event_paid = loadResult("SELECT SUM(`sum`) FROM `incomes` WHERE `eid` = {$event->id}");
 							}
 							
-							$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = {$event->cid} AND `state` = 2");
+							$count_events = clientEventsCount($event->cid);
 							$level = getClientLevel($count_events);
-							$card = loadResult("SELECT `card` FROM `clients` WHERE `id` = {$event->cid}");
+							$card = clientField($event->cid, 'card');
 							if ($card) { $client .= " [{$card}/{$level}]"; }
 						}
 						

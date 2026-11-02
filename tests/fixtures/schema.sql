@@ -82,19 +82,6 @@ CREATE TABLE `event_templates` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `event_templates_pre_22_08_2017` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rid` int(11) NOT NULL,
-  `date` date NOT NULL DEFAULT '0000-00-00',
-  `day` tinyint(1) NOT NULL,
-  `start` tinyint(1) NOT NULL,
-  `end` tinyint(1) NOT NULL,
-  `price` tinytext NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `event_weekly` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `rid` int(11) NOT NULL,
@@ -235,42 +222,12 @@ CREATE TABLE `rooms` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sessions` (
-  `cid` int(11) NOT NULL,
-  `hash` varchar(100) NOT NULL,
-  `time` varchar(14) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `studios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `about` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sync` (
-  `type` tinyint(1) NOT NULL,
-  `updated` datetime NOT NULL,
-  `completed` datetime NOT NULL,
-  `state` tinyint(1) NOT NULL DEFAULT '0',
-  UNIQUE KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sync_tasks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` tinyint(1) NOT NULL,
-  `tablename` varchar(100) NOT NULL,
-  `item` int(11) NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `state` tinyint(1) NOT NULL DEFAULT '0',
-  UNIQUE KEY `id` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

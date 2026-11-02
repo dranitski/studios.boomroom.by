@@ -53,7 +53,6 @@
 					runSql("INSERT INTO `clients` (`type`, `name`, `note`, `card`, `pass`, `dis`) VALUES ({$fields->type}, '{$fields->name}', '{$fields->note}', '{$fields->card}', '{$fields->pass}', '{$fields->dis}')");
 					
 					$id = insertId();
-					toSyncItem(1, 'clients', $id);
 					
 					$msg = "Клиент добавлен";
 					
@@ -64,7 +63,6 @@
 					$id = getInt('id', 'post');
 					
 					runSql("UPDATE `clients` SET `type` = {$fields->type}, `name` = '{$fields->name}', `note` = '{$fields->note}', `card` = '{$fields->card}', `pass` = '{$fields->pass}', `dis` = '{$fields->dis}' WHERE `id` = {$id}");
-					toSyncItem(2, 'clients', $id);
 					
 					$msg = "Информация обновлена";
 					
@@ -81,12 +79,10 @@
 						if ($contact->name == '' and $contact->phone == '' and $contact->email == '' and $contact->vk_id == '' and $contact->vk_addr == '') {
 							
 							runSql("DELETE FROM `client_contacts` WHERE `id` = {$contact->id}");
-							toSyncItem(0, 'client_contacts', $contact->id);
 						}
 						else{
 							
 							runSql("UPDATE `client_contacts` SET `name` = '{$contact->name}', `phone` = '{$contact->phone}', `email` = '{$contact->email}', `vk_id` = '{$contact->vk_id}', `vk_addr` = '{$contact->vk_addr}' WHERE `id` = {$contact->id}");
-							toSyncItem(2, 'client_contacts', $contact->id);
 						}
 					}
 					else {
@@ -94,7 +90,6 @@
 						if ($contact->name or $contact->phone or $contact->email) {
 							
 							runSql("INSERT INTO `client_contacts` (`cid`, `name`, `phone`, `email`, `vk_id`, `vk_addr`) VALUES ({$id}, '{$contact->name}', '{$contact->phone}', '{$contact->email}', '{$contact->vk_id}', '{$contact->vk_addr}')"); $contact_id = insertId();
-							toSyncItem(1, 'client_contacts', $contact_id);
 						}
 					}
 				}
@@ -121,7 +116,6 @@
 			
 			$action = (getInt('act', 'post') == 1) ? "location.assign('{$admin}/clients?edit={$id}');" : "location.assign('{$admin}/clients');";
 			
-			// toSync(4);
 			
 			echo getMsg($msg, "ok", $action);
 			
@@ -130,13 +124,9 @@
 		case 'delete':
 		
 			$id = getInt('id', 'post');
-			$contact_ids = loadResultArray("SELECT `id` FROM `client_contacts` WHERE `cid` = {$id}");
 			
 			runSql("DELETE FROM `clients` WHERE `id` = {$id}");
 			runSql("DELETE FROM `client_contacts` WHERE `cid` = {$id}");
-			toSyncItem(0, 'clients', $id);
-			if (cnt($contact_ids)) { foreach($contact_ids as $contact_id) { toSyncItem(0, 'client_contacts', $contact_id); } }
-			// toSync(4);
 			
 			echo getMsg("Группа удалена", "ok", "location.assign('{$admin}/clients');");
 		

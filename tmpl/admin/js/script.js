@@ -33,7 +33,6 @@ $(function() {
 	}
 	
 	checkRequests();
-	checkSync();
 	setInterval(intervalCheck, 60000);
 });
 
@@ -53,7 +52,6 @@ function intervalCheck() {
 	// if (s == 10 || s == 20 || s == 30 || s == 40 || s == 50) {
 	// if (s == 10 || s == 30 || s == 50) {
 		
-	checkSync();
 	// }
 }
 
@@ -165,22 +163,3 @@ function cancelRequest(id){
 	}
 }
 
-function checkSync() {
-	
-	$.ajax({
-			
-		url:		'/action.php',
-		type:	'post',
-		data: {
-			
-			'ext':		'admin',
-			'task':		'table',
-			'subtask':	'sync',
-			'option':		'check'
-			
-		},
-		dataType: 'script'
-		
-	})
-	.done(function(data){});
-}

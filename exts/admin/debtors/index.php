@@ -94,7 +94,7 @@ if (cnt($debtors)) {
 	$n = 1;
 	foreach ($debtors as $debtor) {
 		
-		$paid = loadResult("SELECT SUM(`sum`) FROM `incomes` WHERE `eid` IN (SELECT `id` FROM `events` WHERE `cid` = {$debtor->id})");
+		$paid = clientPaid($debtor->id);
 		$debtor->debt -= $paid;
 		
 		if ($debtor->debt <= 0) continue;

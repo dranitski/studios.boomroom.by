@@ -23,7 +23,6 @@
 					
 					runSql("INSERT INTO `equipments` (`sid`, `name`, `price`, `count`) VALUES ({$fields->sid}, '{$fields->name}', '{$fields->price}', '{$fields->count}')");
 					$id = insertId();
-					toSyncItem(1, 'equipments', $id);
 					
 					$msg = "Оборудование добавлено";
 					
@@ -34,7 +33,6 @@
 					$id = getInt('id', 'post');
 					
 					runSql("UPDATE `equipments` SET `sid` = {$fields->sid}, `name` = '{$fields->name}', `price` = '{$fields->price}', `count` = '{$fields->count}' WHERE `id` = {$id}");
-					toSyncItem(2, 'equipments', $id);
 					
 					$msg = "Информация обновлена";
 					
@@ -43,7 +41,6 @@
 			
 			$action = (getInt('act', 'post') == 1) ? "location.assign('{$admin}/equipments?edit={$id}');" : "location.assign('{$admin}/equipments');";
 			
-			// toSync(5);
 			
 			echo getMsg($msg, "ok", $action);
 			
@@ -54,9 +51,7 @@
 			$id = getInt('id', 'post');
 			
 			runSql("DELETE FROM `equipments` WHERE `id` = {$id}");
-			toSyncItem(0, 'equipments', $id);
 			
-			// toSync(5);
 			
 			echo getMsg("Оборудование удалено", "ok", "location.assign('{$admin}/equipments');");
 		

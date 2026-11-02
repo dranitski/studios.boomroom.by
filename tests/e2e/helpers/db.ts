@@ -47,7 +47,7 @@ export async function insertEvent(opts: { rid: number; date: string; start: numb
   return res.insertId;
 }
 
-const DYNAMIC_TABLES = ['client_contacts', 'clients', 'event_weekly', 'events', 'expenses', 'incomes', 'log', 'sessions', 'sync_tasks'];
+const DYNAMIC_TABLES = ['client_contacts', 'clients', 'event_weekly', 'events', 'expenses', 'incomes', 'log'];
 
 export async function cleanTestData(): Promise<void> {
   for (const t of DYNAMIC_TABLES) {

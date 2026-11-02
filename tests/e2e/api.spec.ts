@@ -18,7 +18,7 @@ test.beforeEach(async () => {
 });
 
 test('api.php is closed for outside requests', async ({ request }) => {
-  for (const task of ['stateEvents', 'createEventsToday', 'getItem&table=clients&id=1', 'getTasks', 'getFreeTime']) {
+  for (const task of ['stateEvents', 'createEventsToday', 'cleanLog', 'getItem&table=clients&id=1', 'getTasks', 'getFreeTime']) {
     const res = await request.get(`/api.php?task=${task}`);
     expect(res.status(), task).toBe(403);
     expect(await res.text(), task).toBe('');
@@ -54,4 +54,11 @@ test('cron stateEvents closes past events', async () => {
   expect(cron('stateEvents')).toMatch(/HTTP200$/);
   const rows = await query('SELECT id, state FROM `events` WHERE id IN (?, ?) ORDER BY id', [pastId, futureId]);
   expect(rows.map((r) => r.state)).toEqual([2, 0]);
+});
+
+test('cron cleanLog keeps 3 years of the action log', async () => {
+  await execute('DELETE FROM `log`');
+  await execute("INSERT INTO `log` (`text`, `created`) VALUES ('old', NOW() - INTERVAL 3 YEAR - INTERVAL 1 DAY), ('recent', NOW() - INTERVAL 3 YEAR + INTERVAL 1 DAY), ('today', NOW())");
+  expect(cron('cleanLog')).toMatch(/HTTP200$/);
+  expect((await query('SELECT `text` FROM `log` ORDER BY `id`')).map((r) => r.text)).toEqual(['recent', 'today']);
 });
