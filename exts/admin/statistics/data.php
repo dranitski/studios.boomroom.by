@@ -6,8 +6,6 @@
 		
 		case 1: $type = 1; break;
 		case 2: $type = 2; break;
-		case 3: $type = 3; break;
-		case 4: $type = 4; break;
 		
 		default: $type = 1;
 	}
