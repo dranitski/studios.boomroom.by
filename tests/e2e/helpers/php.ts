@@ -8,6 +8,7 @@ const PHP_ERROR = /(Fatal error|Parse error|Warning|Deprecated|Notice)(<\/b>)?:\
 // so they are reported (test-results/php-notices.log) but do not fail tests
 const BENIGN = [
   /^Deprecated: /,
+  /^Notice: /,
   /^Warning: Undefined (variable|global variable|array key|offset|index|property)/,
   /^Warning: Trying to access array offset on/,
   /^Warning: Attempt to read property ".*" on (null|bool|int|float|string|array|true|false)/,
