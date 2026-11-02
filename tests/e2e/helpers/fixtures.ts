@@ -24,6 +24,8 @@ export async function seedActivity(): Promise<{ clients: number[]; events: numbe
     [1, -40, 15, 17, clients[0], 2],
   ] as const) {
     const id = await insertEvent({ rid, date: ymd(daysFromNow(day)), start, end, cid, state, price: 25 });
+    // equipment rent feeds the economics report (economics?type=3)
+    await execute('UPDATE `events` SET `eqs` = ?, `price_eqs` = 4 WHERE `id` = ?', [JSON.stringify([{ id: 1, count: 1 }, { id: 3, count: 2 }]), id]);
     if (state === 2) {
       await execute("UPDATE `events` SET `pay` = 25, `pay_date` = `date` WHERE `id` = ?", [id]);
       await execute("INSERT INTO `incomes` (`sid`, `aid`, `eid`, `name`, `sum`, `date`, `created`) VALUES (1, 1, ?, 'Репетиция', 25, ?, NOW())", [id, ymd(daysFromNow(day))]);

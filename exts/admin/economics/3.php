@@ -91,6 +91,10 @@
 				
 					$eqs_price = $this_eq->price * $h * $eq->count;
 					
+					if (!isset($equipments[$eq->id])) {
+						$equipments[$eq->id] = (object) array('name' => '', 'client' => '', 'sid' => 0, 'price' => 0, 'h' => 0);
+					}
+					
 					$equipments[$eq->id]->name = $this_eq->name;
 					$equipments[$eq->id]->client = $event->client;
 					$equipments[$eq->id]->sid = $this_eq->sid;
@@ -242,7 +246,7 @@
 					<?php } ?>
 				</div>
 				<p class="clear"></p>
-				<?php// if ($event->p == 1) { ?>
+				<?php // if ($event->p == 1) { ?>
 				<?php if ($event->note) { ?>
 					<p style="padding: 5px 0 0 0; font-size: 10px; text-align: left;"><i><?php echo $event->note; ?></i></p>
 				<?php } ?>

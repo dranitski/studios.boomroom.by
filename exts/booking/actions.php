@@ -423,10 +423,10 @@
 			
 				case 'get':
 				
-					$rid = getInt('rid', 'get');
-					$date = getVar('date', 'get');
-					$start = getInt('start', 'get');
-					$end = getInt('end', 'get');
+					$rid = getInt('rid', 'post');
+					$date = getVar('date', 'post');
+					$start = getInt('start', 'post');
+					$end = getInt('end', 'post');
 					
 					$sid = loadResult("SELECT `sid` FROM `rooms` WHERE `id` = {$rid}");
 					
