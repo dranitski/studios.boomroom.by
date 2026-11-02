@@ -2,6 +2,21 @@
 	
 	defined('access') or die ('no access');
 	
+	// Число проведенных репетиций клиента (для уровня скидки); все клиенты считаются одним запросом за запрос страницы
+	function clientEventsCount($cid) {
+		
+		static $counts = null;
+		
+		if ($counts === null) {
+			$counts = array();
+			foreach (loadAssocList("SELECT `cid`, COUNT(*) AS `n` FROM `events` WHERE `state` = 2 AND `cid` > 0 GROUP BY `cid`") as $row) {
+				$counts[$row['cid']] = (int) $row['n'];
+			}
+		}
+		
+		return isset($counts[(int) $cid]) ? $counts[(int) $cid] : 0;
+	}
+	
 	// Часы события: ночное (с 23) - 23..5, иначе от start до end, с переходом через полночь (22 -> 6)
 	function eventHours($start, $end) {
 		

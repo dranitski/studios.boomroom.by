@@ -100,7 +100,7 @@
 							// $client->dis = 0;
 							if ($client->card) {
 								
-								$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = ".(int) $client->id." AND `state` = 2");
+								$count_events = clientEventsCount($client->id);
 								$client->dis = ($client->dis > 0) ? $client->dis : getClientLevel($count_events, 1);
 							}
 							
@@ -365,7 +365,7 @@
 							}
 							
 							$contacts = loadObjectList("SELECT * FROM `client_contacts` WHERE `cid` = {$cid}");
-							$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = ".(int) $client->id." AND `state` = 2");
+							$count_events = clientEventsCount($client->id);
 							
 							$discount = ($client->card) ? "Скидка ".getClientLevel($count_events, 1)."%" : "Без скидки";
 							if ($client->type == 3) { $discount = "Скидка 30%"; }
@@ -392,7 +392,7 @@
 							// $thisclient->dis = 0;
 							if ($thisclient->card) {
 								
-								$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = ".(int) $thisclient->id." AND `state` = 2");
+								$count_events = clientEventsCount($thisclient->id);
 								$thisclient->dis = ($thisclient->dis > 0) ? $thisclient->dis : getClientLevel($count_events, 1);
 							}
 							
@@ -830,7 +830,7 @@
 						}
 						
 						$contacts = loadObjectList("SELECT * FROM `client_contacts` WHERE `cid` = {$cid}");
-						$count_events = loadResult("SELECT COUNT(*) FROM `events` WHERE `cid` = ".(int) $client->id." AND `state` = 2");
+						$count_events = clientEventsCount($client->id);
 						
 						$discount = ($client->card) ? "Скидка ".getClientLevel($count_events, 1)."%" : "Без скидки";
 						if ($client->type == 3) { $discount = "Скидка 30%"; } 
