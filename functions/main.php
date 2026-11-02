@@ -37,7 +37,7 @@
 		}
 		
 		if ($sql) {
-			$var = mysql_real_escape_string($var);
+			$var = dbEscape($var);
 		}
 		
 		return $var;

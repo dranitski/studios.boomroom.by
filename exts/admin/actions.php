@@ -271,7 +271,7 @@
 				}
 				
 				// $params = json_encode($array_params);
-				$params = preg_replace_callback('/\\\u([0-9a-fA-F]{4})/', create_function('$match', 'return mb_convert_encoding("&#" . intval($match[1], 16) . ";", "UTF-8", "HTML-ENTITIES");'), json_encode($array_params));
+				$params = dbEscape(json_encode($array_params, JSON_UNESCAPED_UNICODE));
 				
 				runSql("UPDATE `pages` SET `params` = '{$params}' WHERE `id` = {$id}");
 			

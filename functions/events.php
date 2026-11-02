@@ -3,7 +3,7 @@
 	defined('access') or die ('no access');
 	
 	// Массив свободных количества свободных инструментов
-	function getFreeEqs($equipments = array(), $sid, $date, $start, $end, $weekly = false) {
+	function getFreeEqs($equipments, $sid, $date, $start, $end, $weekly = false) {
 	
 		if ($weekly == false) {
 			

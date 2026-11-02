@@ -11,3 +11,8 @@ docker/mysql/init/*.sql.gz
 .vscode/
 *.log
 error_log
+
+# Node / Playwright
+node_modules/
+test-results/
+playwright-report/

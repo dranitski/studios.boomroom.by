@@ -1,6 +1,6 @@
-FROM php:5.6.40-apache
+FROM php:8.3.36-apache-bookworm
 
-RUN docker-php-ext-install mysql mysqli pdo_mysql mbstring
+RUN docker-php-ext-install mysqli
 
 RUN a2enmod rewrite headers expires
 

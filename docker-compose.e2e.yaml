@@ -1,0 +1,45 @@
+# Isolated stack for Playwright e2e tests: empty schema + reference seed, no production data
+services:
+  e2e-www:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8005:80"
+    volumes:
+      - ./:/var/www/html/
+      - e2e_mysqld_sock:/var/run/mysqld
+    depends_on:
+      e2e-db:
+        condition: service_healthy
+    environment:
+      TZ: "Europe/Minsk"
+    extra_hosts:
+      - "repa.by:127.0.0.1"
+      - "boomroom.by:127.0.0.1"
+
+  e2e-db:
+    image: mysql:5.7.44
+    ports:
+      - "3309:3306"
+    command: mysqld --sql_mode="" --character-set-server=utf8 --explicit-defaults-for-timestamp=1
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: studios_boomroom_site
+      TZ: "Europe/Minsk"
+    volumes:
+      - e2e_mysqld_sock:/var/run/mysqld
+      - ./docker/mysql/init/00-users.sh:/docker-entrypoint-initdb.d/00-users.sh:ro
+      - ./tests/fixtures/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./tests/fixtures/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - ./secrets-local.php:/site-config.php:ro
+    healthcheck:
+      # TCP, not the socket: init scripts run a temporary --skip-networking server first
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--protocol=TCP", "-u", "root", "-pmysql"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+      start_period: 10s
+
+volumes:
+  e2e_mysqld_sock:

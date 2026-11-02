@@ -2,7 +2,9 @@
 	
 	defined('access') or die ('no access');
 	
-	require 'inc/PHPMailer/PHPMailerAutoload.php';
+	require_once __DIR__.'/inc/PHPMailer/Exception.php';
+	require_once __DIR__.'/inc/PHPMailer/PHPMailer.php';
+	require_once __DIR__.'/inc/PHPMailer/SMTP.php';
 	
 	function sendEmail($toEmail, $subject, $html, $toName = null, $fromEmail = null, $fromName = null, $text = null, $files = null) {
 		
@@ -20,7 +22,7 @@
 		}
 		
 		// Создаем экземпляр класса
-		$mail = new PHPMailer();
+		$mail = new \PHPMailer\PHPMailer\PHPMailer();
 		
 		$mail->CharSet = 'UTF-8';
 		
