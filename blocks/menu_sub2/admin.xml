@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+	<items>
+		<item
+			id="1"
+			name="Вокал"
+			link="music_school/education/vocals"
+			ord="1"
+		/>
+		<item
+			id="2"
+			name="Гитара"
+			link="music_school/education/guitar"
+			ord="2"
+		/>
+		<item
+			id="3"
+			name="Бас-гитара"
+			link="music_school/education/bass"
+			ord="3"
+		/>
+		<item
+			id="4"
+			name="Барабаны"
+			link="music_school/education/drums"
+			ord="4"
+		/>
+		<item
+			id="5"
+			name="Фортепиано"
+			link="music_school/education/piano"
+			ord="5"
+		/>
+		<item
+			id="6"
+			name="Сольфеджио"
+			link="music_school/education/solfeggio"
+			ord="6"
+		/>
+	</items>
+</data>

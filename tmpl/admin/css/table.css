@@ -1,0 +1,843 @@
+#tablemenu {
+	position: fixed;
+	width: 100%;
+	height: 50px;
+	padding: 0px 15px;
+	font-size: 18px;
+	line-height: 15px;
+	box-sizing: border-box;
+	background: #fff;
+	z-index: 998;
+}
+
+#tablemenu table {
+	width: 100%;
+	border: none;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+#tablemenu table td {
+	border: 1px solid #ddd;
+	height: 50px;
+	text-align: center;
+}
+
+#tablemenu p {
+	color: #999;
+	line-height: 25px;
+}
+
+#tablemenu ul {
+	list-style: none;
+}
+
+#tablemenu ul li {
+	display: inline-block;
+}
+
+#tablemenu ul li a {
+	display: block;
+	line-height: 25px;
+	padding: 0 15px;
+	color: #222;
+}
+
+#tablemenu ul li a.active {
+	color: #000;
+	background: #ddd;
+	font-weight: bold;
+}
+
+#tablerooms-head {
+	position: fixed;
+	width: 100%;
+	height: 50px;
+	padding: 0px 15px;
+	line-height: 15px;
+	box-sizing: border-box;
+	background: #fff;
+	z-index: 998;
+}
+
+#tablerooms-head h1 {
+	padding: 15px 0;
+	font-size: 20px;
+	text-align: center;
+}
+
+#tablerooms-head #date {
+	width: 100px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#tablehead {
+	position: fixed;
+	width: 100%;
+	padding: 0px 15px;
+	margin: 50px 0 0 0;
+	background: #ddd;
+	font-size: 16px;
+	text-align: center;
+	line-height: 15px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #bbb;
+	z-index: 998;
+}
+#tablehead td {
+	vertical-align: middle;
+}
+#tablehead td.holiday {
+	background: #9c2222;
+	color: #fff;
+}
+#tablehead td.holiday a {
+	color: #fff!important;
+}
+
+#tablehead .left, #tablehead .right {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	margin: -35px 0 0 0;
+	background: url('../images/nav.png') left top no-repeat;
+	cursor: pointer;
+}
+
+#tablehead .left {
+	left: 5px;
+	background-position: left top;
+}
+
+#tablehead .left:hover { background-position: left bottom; }
+
+#tablehead .right {
+	right: 5px;
+	background-position: right top;
+}
+
+#tablehead .right:hover { background-position: right bottom; }
+
+#timetable {
+	padding: 0px 15px;
+	margin: 90px 0 20px 0;
+}
+
+table.table {
+	width: 100%;
+	border: none;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+.table th, .table td {
+	border: 1px solid #ddd;
+	height: 40px;
+	width: 13.8%;
+}
+
+.table.rooms th, .table.rooms td {
+	width: 12.0%;
+}
+
+#tablehead .table td a {
+	color: #222;
+}
+
+.table td {
+	vertical-align: top;
+}
+
+.table td.holiday {
+	background: #555;
+	border: 1px solid #777;
+}
+
+.table td:first-child, .table th:first-child {
+	width: 40px;
+}
+
+.table .h {
+	float: right;
+	margin: 5px;
+	font-size: 12px;
+}
+
+.table tr:hover td {
+	/* border-bottom: 1px solid #777; */
+}
+
+.table .item {
+	position: absolute;
+	width: inherit;
+	color: #222;
+	border: none;
+	background: rgba(140, 255, 112, .5);
+	outline: 2px solid #bbb;
+	cursor: pointer;
+}
+
+.table.edit .item {
+	background: rgba(221, 221, 221, .5);
+}
+
+.table .item.have {
+	background: rgba(255, 173, 140, .9);
+	z-index: 1;
+}
+
+.table .item.have:hover {
+	background: rgba(255, 173, 140, 1);
+}
+
+.table .item.have label {
+	display: block;
+	position: absolute;
+	margin: 5px;
+	font-size: 12px;
+	color: #000;
+}
+
+.table .item.have label.pay {
+	padding: 3px 5px;
+	font-size: 10px;
+	text-transform: uppercase;
+	color: #fff; 
+}
+
+.table .item.have label.pay.no {
+	background: #c60e0e;
+}
+
+.table .item.have label.pay.part {
+	background: #c6b90e;
+}
+
+.table .item.have label.pay.paid {
+	background: #67ce1d;
+}
+
+.table .item.this {
+	background: rgba(230, 255, 112, .5);
+}
+
+.table .item:hover {
+	background: rgba(140, 255, 112, .8);
+	outline: 2px solid #777;
+	z-index: 1000;
+}
+
+.table .item[data-dur="1"] { height: 41px; } .table .item[data-dur="1"] .time { margin-top: 12px; }
+.table .item[data-dur="2"] { height: 82px; } .table .item[data-dur="2"] .time { margin-top: 34px; }
+.table .item[data-dur="3"] { height: 123px; } .table .item[data-dur="3"] .time { margin-top: 54px; }
+.table .item[data-dur="4"] { height: 164px; } .table .item[data-dur="4"] .time { margin-top: 74px; }
+.table .item[data-dur="5"] { height: 205px; } .table .item[data-dur="5"] .time { margin-top: 94px; }
+.table .item[data-dur="6"] { height: 246px; } .table .item[data-dur="6"] .time { margin-top: 114px; }
+.table .item[data-dur="7"] { height: 287px; } .table .item[data-dur="7"] .time { margin-top: 134px; }
+.table .item[data-dur="8"] { height: 328px; } .table .item[data-dur="8"] .time { margin-top: 154px; }
+
+.table .item .time {
+	line-height: 15px;
+	text-align: center;
+}
+.table .item .date {
+	line-height: 15px;
+	text-align: center;
+	font-size: 12px;
+}
+.table .item .client {
+	line-height: 15px;
+	text-align: center;
+	color: #777;
+}
+
+.table .item.set {
+	height: 41px;
+	background: none;
+	outline: none;
+}
+.table .item.set .time {
+	display: none;
+	margin-top: 12px;
+}
+.table .item.set:hover {
+	background: #fff;
+	outline: 2px solid #777;
+	z-index: 1000;
+}
+.table .item.set:hover .time {
+	display: block;
+}
+
+.table .item.past {
+	background: rgba(221, 221, 221, .5);
+}
+
+.table .item.past .client {
+	color: #ebebeb;
+}
+
+.table .item.have.past {
+	background: rgba(153, 153, 153, .9);
+	color: #fff;
+}
+.table .item.have.past label {
+	color: #fff;
+}
+
+.table .item.weekly {
+	background: rgba(255, 220, 140, .9);
+	z-index: 1;
+}
+
+.table .item.weekly label {
+	display: block;
+	position: absolute;
+	margin: 5px;
+	font-size: 12px;
+	color: #000;
+}
+
+.table .item.weekly:hover {
+	background: rgba(255, 220, 140, 1);
+	z-index: 2;
+}
+
+.table .item.weekly.past {
+	background: rgba(153, 153, 153, .9);
+	color: #fff;
+}
+
+.table .item label.debt {
+	position: relative;
+	float: right;
+	padding: 3px 5px;
+	font-size: 10px;
+	color: #fff;
+	background: #c60e0e;
+	text-transform: uppercase;
+}
+
+.table .item label.price.skipped {
+	color: #ffd4d4;
+}
+
+
+#template {
+	padding: 15px 20px;
+}
+
+#template .title {
+	float: left;
+	line-height: 25px;
+	font-size: 24px;
+	color: #bbb;
+}
+
+#template .templates {
+	float: right;
+	line-height: 30px;
+}
+#template .datetime {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	font-size: 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+#template .date {
+	float: left;
+}
+
+#template .time {
+	float: right;
+	color: #555;
+}
+
+#template .time select {
+	font-size: 20px;
+	color: #555;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+#template .weekly {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#template .price {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#template .price p {
+	font-size: 20px;
+	padding: 0 0 10px 0;
+}
+
+#template .price label {
+	display: block;
+	line-height: 30px;
+}
+
+#template .price input {
+	width: 100px;
+	padding: 0 10px;
+	line-height: 30px;
+	outline: 1px solid #ddd;
+	text-align: left;
+}
+
+#template .price span {
+	display: inline-block;
+	width: 100px;
+}
+
+#template .actions {
+	margin: 10px 0 0 0;
+}
+
+#template .actions p {
+	line-height: 30px;
+	padding: 0px 10px;
+	margin: 0px 5px;
+	color: #fff;
+	cursor: pointer;
+}
+#template .actions p:hover {
+	background: #222;
+}
+
+#template .actions .save {
+	float: left;
+	background: #006917;
+}
+
+#template .actions .delete {
+	float: right;
+	background: #960e00;
+}
+
+
+
+
+
+#event {
+	padding: 15px 20px;
+}
+
+#event .title {
+	line-height: 25px;
+	font-size: 24px;
+	color: #bbb;
+}
+
+#event-skipped {
+	float: right;
+	color: #c60e0e;
+	text-transform: uppercase;
+}
+
+#event .datetime {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	font-size: 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .date {
+	float: left;
+}
+
+#event .time {
+	float: right;
+	color: #555;
+}
+
+#event .time select {
+	font-size: 20px;
+	color: #555;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+#event .weekly {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .client {
+	height: 100px;
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .client p {
+	font-size: 14px;
+	margin: 5px 0;
+}
+
+#event .client select[name="cid"] {
+	width: 360px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	font-size: 18px;
+	color: #222;
+	border: none;
+	outline: 1px solid #ddd;
+	cursor: pointer;
+	box-sizing: border-box;
+}
+
+#event .client input[type="text"], #event .client select[name="client_type"] {
+	float: left;
+	width: 180px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	font-size: 18px;
+	color: #555;
+	text-align: left;
+	outline: 1px solid #ddd;
+	box-sizing: border-box;
+}
+
+#event .client select[name="client_type"] {
+	width: 100px;
+}
+
+#event .client input[name="card"] {
+	width: 180px;
+	height: 30px;
+}
+
+#event .client .add {
+	margin: 10px 0 0 0;
+}
+
+#event .client .info {
+	display: none;
+	height: 63px;
+	margin: 10px 0 0 0;
+	padding: 0 0 7px 0;
+	overflow-y: auto;
+}
+
+#event .client .debt {
+	display: block;
+	float: right;
+	color: #fff;
+	background: #c60e0e;
+	padding: 2px 5px;
+	border-radius: 2px;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+#event .findByPhoneList {
+	display: none;
+	position: absolute;
+	width: 460px;
+	padding: 15px;
+	background: #fff;
+	box-shadow: 0 20px 30px rgba(0,0,0,.5);
+	box-sizing: border-box;
+}
+
+#event .findByPhoneList .item {
+	line-height: 14px;
+	padding: 7px 0;
+	font-size: 18px;
+	color: #222;
+	cursor: pointer;
+}
+
+#event > .nm {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
+
+#event > .nm label {
+	display: inline-block;
+	margin: 0 15px;
+	cursor: pointer;
+}
+
+#event > .nm input {
+	margin: 0 10px 0 0;
+}
+
+#rent {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#rent .list {
+	height: 80px;
+	margin: 10px 0 0 0;
+	overflow-y: auto;
+}
+
+#rent .item {
+	line-height: 15px;
+	font-size: 14px;
+	border-bottom: 1px solid #ebebeb;
+}
+
+#rent .item > div {
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+#rent .item .count {
+	width: 15px;
+	font-weight: bold;
+}
+
+#rent .actions > span {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin: 0;
+	color: #fff;
+	background: #999;
+	text-align: center;
+	cursor: pointer;
+	-ms-user-select: none; 
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	user-select: none;
+}
+
+#rent .actions > span:hover {
+	background: #555;
+}
+
+#rent .name {
+	line-height: 15px;
+	padding: 0;
+}
+
+#rent .name span {
+	display: inline;
+	padding: 0;
+	color: #999;
+	font-size: 12px;
+}
+
+#rent .item .rent {
+	float: right;
+	margin: 0;
+}
+
+#rent .total {
+	line-height: 20px;
+	margin: 7px 0 0 0;
+}
+
+#rent .total h3 {
+	display: block;
+	float: left;
+}
+
+#rent .total span {
+	display: block;
+	float: right;
+	font-size: 18px;
+}
+
+#event .price {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .price h3 {
+	float: left;
+}
+
+#event .price h3 p {
+	font-size: 14px;
+	font-weight: normal;
+	text-transform: none;
+}
+
+#event .price input[name="price"] {
+	float: right;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	font-size: 18px;
+	color: #555;
+	text-align: right;
+	outline: 1px solid #ddd;
+	box-sizing: border-box;
+}
+
+#event .price select[name="pay_type"] {
+	display: block;
+	float: right;
+	width: 100px;
+	height: 20px;
+	line-height: 20px;
+}
+
+#price-edits {
+	display: block;
+	float: right;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+#price-edits input {
+	display: block;
+	float: right;
+	margin: 10px;
+}
+
+#price-free {
+	display: block;
+	float: right;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+#price-free input {
+	display: block;
+	float: right;
+	margin: 5px 10px;
+}
+
+#event .note {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .note textarea {
+	width: 100%;
+	height: 50px;
+	padding: 5px 10px;
+	outline: 1px solid #ddd;
+	outline-offset: -1px;
+	border: none;
+	box-sizing: border-box;
+}
+
+#event .actions {
+	margin: 10px 0 0 0;
+}
+
+#event .actions p {
+	line-height: 30px;
+	padding: 0px 10px;
+	margin: 0px 5px;
+	color: #fff;
+	cursor: pointer;
+}
+#event .actions p:hover {
+	background: #222;
+}
+
+#event .actions .save {
+	float: left;
+	background: #006917;
+}
+
+#event .actions .apply {
+	float: left;
+	/* background: #006951; */
+	background: #006917;
+}
+
+#event .actions .delete {
+	float: right;
+	/* background: #960e00; */
+	background: #006917;
+}
+
+#event .actions .cancel {
+	float: right;
+	/* background: #000; */
+	background: #006917;
+}
+
+#event .actions .post {
+	float: left;
+	/* background: #999; */
+	background: #006917;
+}
+
+#event .actions .nodate {
+	float: right;
+	/* background: #999; */
+	background: #006917;
+}
+
+#event .actions .clicked {
+	background: #ccc!important;
+}
+
+#event input[type="text"]:focus, #event textarea:focus {
+	outline: 1px solid #bbb;
+}
+
+
+#event .pay input[name="pay"] {
+	float: right;
+	width: 95px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	font-size: 18px;
+	color: #555;
+	text-align: right;
+	outline: 1px solid #ddd;
+	box-sizing: border-box;
+}
+
+#event .pay .save {
+	float: right;
+}
+
+#price-total {
+	color: #0a9829;
+	font-size: 18px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

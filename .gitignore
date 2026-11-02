@@ -1,0 +1,13 @@
+# Секреты продакшена: лежат только на сервере
+secrets-release.php
+
+# Бекапы и дампы базы
+backup/
+docker/mysql/init/*.sql
+docker/mysql/init/*.sql.gz
+
+.DS_Store
+.idea/
+.vscode/
+*.log
+error_log

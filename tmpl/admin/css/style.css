@@ -1,0 +1,220 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	font: normal 14px Calibri;
+}
+body {
+	background: #003153;
+	color: #fff;
+	width: 100%;
+}
+a {
+	color: #fff;
+	text-decoration: none;
+}
+a:hover {
+	color: #2493d8;
+	text-decoration: underline;
+}
+ol, ul {
+	list-style-type:none;
+}
+input {
+	background: #fff;
+	font-family: Calibri;
+	border: none;
+	outline: none;
+	outline-offset: 0;
+	text-align: center;
+}
+select {
+	background: #fff;
+	font-family: Calibri;
+	border: none;
+	outline: 1px solid #ddd;
+	outline-offset: 0;
+	text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+	text-transform: uppercase;
+}
+
+strong, b {
+	font-weight: bold;
+}
+
+img {
+	border: none;
+}
+
+.fl { float: left;}
+.fr { float: right;}
+.clear { clear: both; }
+
+.fl { float: left;}
+.fr { float: right;}
+.clear { clear: both; }
+
+.lTitle {
+	font-size: 20px;
+	height: 25px;
+	line-height: 25px;
+	margin: 20px auto 35px auto;
+}
+
+#login {
+	display: block;
+	width: 300px;
+	height: 330px;
+	margin: 100px auto 0px auto;
+	text-align: center;
+}
+
+#login input {
+	display: block;
+	margin: 10px auto;
+}
+
+#login input[type=text], #login input[type=password], #login select{
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	font-family: Arial;
+	font-size: 16px;
+	text-align: center;
+	border: none;
+	outline: none;
+	box-sizing: border-box;
+}
+#login input[type=submit] {
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	font-family: Arial;
+	font-size: 12px;
+	text-transform: uppercase;
+	text-align: center;
+	background: #001727;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+#login input[type=submit]:hover {
+	background: #2493d8;
+}
+
+#about {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	margin: 5px 0px 5px 0px;
+}
+
+#version {
+	float: left;
+	margin: 0px 0px 0px 10px;
+	font-size: 12px;
+}
+
+#logo {
+	width: 108px;
+	height: 130px;
+	margin: 0px auto;
+	background: url('../images/logo.png');
+}
+
+#m-logo {
+	display: block;
+	float: right;
+	width: 92px;
+	height: 30px;
+	margin-right: 10px;
+	background: url('../images/m-logo.jpg');
+}
+
+#message {
+	display: none;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	color: #fff;
+	text-align: center;
+}
+
+.okMsg {
+	background: #006917;
+}
+.errorMsg {
+	background: #960e00;
+}
+
+#head {
+	width: 100%;
+	height: 40px;
+}
+
+#title {
+	float: left;
+	font-size: 20px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0px 0px 0px 10px;
+}
+
+#loguot {
+	float: right;
+	margin: 10px 10px 0px 0px;
+}
+
+#loguot input[type=submit]{
+	float: right;
+	width: 80px;
+	height: 20px;
+	line-height: 20px;
+	font-family: Arial;
+	font-size: 10px;
+	text-transform: uppercase;
+	text-align: center;
+	background: #001727;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+#loguot input[type=submit]:hover {
+	background: #2493d8;
+}
+
+#menu {
+	height: 30px;
+	line-height: 30px;
+	background: #001727;
+	text-align: center;
+}
+
+#menu a {
+	margin: 0px 15px;
+	font-size: 14px;
+}
+#menu .active {
+	text-decoration: underline;
+}
+
+#main {
+	overflow: auto;
+}
+
+.inner {
+	background: #fff;
+	color: #555;
+	min-height: 500px;
+}
+
+#selectfile {
+	margin: 50px 0px 0px 0px;
+	font-size: 20px;
+	cursor: pointer;
+}

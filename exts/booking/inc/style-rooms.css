@@ -1,0 +1,38 @@
+#booking {
+	margin: 0px;
+	padding: 0px;
+}
+
+#select-date {
+	padding: 15px 0 0 0;
+}
+
+#booking table.rooms td {
+	width: 11.5%;
+}
+
+#booking table td.min {
+	width: 55px!important;
+}
+
+#iw > div {
+	height: 520px!important;
+	margin-top: 0px!important;
+}
+
+#event .title {
+	line-height: 15px;
+	font-size: 18px;
+}
+
+#event .datetime {
+	margin: 5px 0 0 0;
+}
+
+#rent .list {
+	height: 60px;
+}
+
+#event .note textarea {
+	height: 30px;
+}

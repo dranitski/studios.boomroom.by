@@ -1,0 +1,147 @@
+#report {
+	margin: 30px 0 0 0;
+	padding: 15px;
+}
+
+.reset {
+	cursor: pointer;
+	background: #fff;
+	padding: 0px 5px;
+}
+
+.total {
+	height: 10px;
+	line-height: 10px;
+	margin-left: 10px;
+	padding: 10px 0px;
+	font-size: 16px;
+}
+
+#report .w50p {
+	float: left;
+	width: 50%;
+	min-width: 700px;
+	margin: 15px 0 0 0!important;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+#report .w100p {
+	float: left;
+	width: 100%;
+	min-width: 700px;
+	margin: 15px 0 0 0!important;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+#report .showhide {
+	display: block;
+	float: right;
+	cursor: pointer;
+	padding: 0 10px;
+}
+
+#report .list[data-s="0"] .item {
+	display: none;
+}
+
+#report .list .item > div {
+	float: left;
+}
+
+#report .item.head {
+	line-height: auto;
+}
+
+#report .item .num {
+	width: 20px;
+}
+
+#report .item .time, #report .item .date {
+	width: 80px;
+}
+
+#report .item .place {
+	width: 120px;
+}
+
+#report .item .prices {
+}
+
+#report .item .prices span, #report .total .prices span {
+	display: block;
+	float: left;
+	width: 60px;
+	padding: 0 5px;
+}
+
+#report .item.head .prices span {
+	height: 30px;
+}
+
+#report .item .prices span.brd, #report .total .prices span.brd {
+	border-left: 1px solid #999;
+}
+
+#report .item .prices, #report .total .prices {
+	float: right!important;
+}
+
+#report .total .prices {
+	font-size: 13px;
+}
+
+#report .item .price span {
+	color: #000;
+}
+
+#submenu a.print {
+	float: right;
+	line-height: 30px;
+	padding: 0 15px;
+	font-family: Arial;
+	font-size: 10px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+	color: #fff;
+}
+
+@media print {
+
+	#head, #menu, #about, .filter {
+		display: none;
+	}
+
+	#main {
+		margin: 0;
+	}
+	
+	#report {
+		margin: 0;
+		padding: 0;
+	}
+	
+	#report .w100p, #report .w50p {
+		width: 100%;
+		min-width: 100%;
+	}
+	
+	#report .block {
+		padding-top: 5px;
+	}
+	
+	#report .bName  {
+		margin: 0px;
+	}
+	
+	#report .showhide {
+		display: none;
+	}
+	
+	#report .total {
+		margin: 0px;
+	}
+	
+}

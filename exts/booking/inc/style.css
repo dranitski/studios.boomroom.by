@@ -1,0 +1,601 @@
+#booking {
+	margin: -30px 0 0 0;
+	padding: 15px 0 0 0;
+}
+
+#booking .title {
+	text-align: center;
+}
+
+#booking ul.menu {
+	display: block;
+	height: 50px;
+	line-height: 50px;
+	margin: 15px 0 0 0;
+	list-style: none;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 25px;
+	background: #ebebeb;
+}
+
+#booking ul.menu li {
+	display: inline-block;
+	margin: 0 100px;
+}
+
+#booking ul.menu li a {
+	display: block;
+	color: #222;
+	font-weight: bold;
+}
+
+#booking ul.menu.sub {
+	margin: 0;
+	font-size: 22px;
+	background: none;
+}
+
+#booking ul.menu.sub li {
+	display: inline-block;
+	margin: 0 70px;
+}
+
+#booking ul.menu.sub li a {
+	font-weight: normal;
+	color: #777;
+}
+
+#booking ul.menu li a.active {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#booking .about {
+	height: 200px;
+}
+
+#booking .about > p {
+	float: left;
+	width: 860px;
+	margin: 0;
+	color: #000;
+	font-family: Arial;
+	font-size: 16px;
+}
+
+#booking .about img {
+	float: right;
+	height: 200px;
+	margin: 0;
+}
+
+#booking table {
+	width: 100%;
+	border: none;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+#booking table td {
+	width: 150px;
+	text-align: center;
+	border: 1px solid #ddd;
+	height: 25px;
+	vertical-align: top;
+}
+
+#booking table.rooms td {
+	width: 130px;
+}
+
+#booking table td.holiday {
+	background: #555;
+	border: 1px solid #777;
+}
+
+#booking table tr:hover td {
+	/* border-bottom: 1px solid #999; */
+}
+
+#booking table td.min {
+	width: 55px;
+}
+
+#booking .head {
+	margin: 15px 0 0 0;
+	font-size: 15px;
+	background: #ddd;
+}
+
+#booking .head table td {
+	height: 30px;
+	vertical-align: middle;
+	color: #222;
+}
+
+#booking .head table td.holiday {
+	background: #9c2222;
+	color: #fff;
+}
+
+#booking .left, #booking .right {
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin: 0px auto;
+	background: url('nav.png') left top no-repeat;
+	cursor: pointer;
+}
+
+#booking .left {
+	background-position: left top;
+}
+
+#booking .left:hover { background-position: left bottom; }
+
+#booking .right {
+	background-position: right top;
+}
+
+#booking .right:hover { background-position: right bottom; }
+
+#booking .h {
+	float: right;
+	margin: 2px 5px 0 0;
+	font-size: 12px;
+}
+
+#booking table {
+	font-family: Arial;
+}
+
+#booking table .item {
+	position: absolute;
+	width: inherit;
+	color: #222;
+	border: none;
+	background: rgba(140, 255, 112, .8);
+	outline: 1px solid #999;
+	cursor: pointer;
+	z-index: 1;
+}
+
+#booking table .item.blocked {
+	background: rgba(255, 173, 140, 1);
+	cursor: default;
+	z-index: 2;
+}
+
+#booking table .item.past {
+	background: #bbb;
+	cursor: default;
+}
+
+#booking table .item.past:hover {
+	background: #bbb;
+}
+
+#booking table .item:hover {
+	background: rgba(140, 255, 112, 1);
+	outline: 2px solid #777;
+	z-index: 1000;
+}
+
+#booking table .item.blocked:hover {
+	background: rgba(255, 173, 140, 1);
+}
+
+#booking .item[data-dur="1"] { height: 26px; } #booking .item[data-dur="1"] .time { margin-top: 5px; }
+#booking .item[data-dur="2"] { height: 52px; } #booking .item[data-dur="2"] .time { margin-top: 17px; }
+#booking .item[data-dur="3"] { height: 78px; } #booking .item[data-dur="3"] .time { margin-top: 29px; }
+#booking .item[data-dur="4"] { height: 104px; } #booking .item[data-dur="4"] .time { margin-top: 41px; }
+#booking .item[data-dur="5"] { height: 130px; } #booking .item[data-dur="5"] .time { margin-top: 53px; }
+#booking .item[data-dur="6"] { height: 156px; } #booking .item[data-dur="6"] .time { margin-top: 65px; }
+#booking .item[data-dur="7"] { height: 182px; } #booking .item[data-dur="7"] .time { margin-top: 77px; }
+#booking .item[data-dur="8"] { height: 208px; } #booking .item[data-dur="8"] .time { margin-top: 89px; }
+
+#booking .item .time {
+	line-height: 15px;
+	text-align: center;
+}
+
+#event {
+	padding: 15px 20px;
+	font-family: Arial;
+}
+
+#event .title {
+	line-height: 25px;
+	font-size: 24px;
+	color: #bbb;
+}
+
+#event .datetime {
+	margin: 15px 0 0 0;
+	padding: 0 0 10px 0;
+	font-size: 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .date {
+	float: left;
+}
+
+#event .time {
+	float: right;
+	color: #555;
+}
+
+#event .time select {
+	font-size: 20px;
+	color: #555;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+#event .client {
+	height: 65px;
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .client input[type="text"], #event .client select[name="client_type"] {
+	float: left;
+	width: 180px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	font-size: 16px;
+	color: #555;
+	text-align: left;
+	border: none;
+	outline: 1px solid #ddd;
+	outline-offset: -1px;
+	box-sizing: border-box;
+}
+
+#event .client select[name="client_type"] {
+	width: 100px;
+}
+
+#event .client label {
+	float: left;
+	width: 180px;
+	height: 30px;
+	line-height: 30px;
+	margin: 5px 0 0 0;
+}
+
+#event .client input[name="card"] {
+	width: 100px;
+	height: 30px;
+	margin: 5px 0 0 0;
+}
+
+#event .client input[name="pass"] {
+	width: 100px;
+	height: 30px;
+	margin: 5px 0 0 0;
+}
+
+#card {
+}
+
+#card input[type="button"] {
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	margin: 5px 0 0 0;
+	color: #fff;
+	cursor: pointer;
+	border: 0;
+	outline: 0;
+}
+
+#card input[type="button"][data-state="0"]{
+	background: #999;
+}
+
+#card input[type="button"][data-state="1"]{
+	background: #56B01B;
+}
+
+#card input[type="button"]:hover {
+	background: #777;
+}
+
+#event .client .add {
+	margin: 10px 0 0 0;
+}
+
+#event .client .phone {
+	float: left;
+	width: 230px;
+}
+
+#event .client .phone span {
+	display: block;
+	float: left;
+	line-height: 30px;
+	padding: 0 10px 0 20px;
+	font-size: 16px;
+	color: #555;
+}
+
+#event .client .phone select {
+	display: block;
+	float: left;
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 16px;
+	color: #555;
+}
+
+#event .client .phone input {
+	width: 110px;
+}
+
+#event > .nm {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
+
+#event > .nm label {
+	display: inline-block;
+	margin: 0 15px;
+	cursor: pointer;
+}
+
+#event > .nm input {
+	margin: 0 10px 0 0;
+}
+
+#rent {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#rent > p {
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #999;
+}
+
+#rent .list {
+	height: 100px;
+	margin: 10px 0 0 0;
+	overflow-y: auto;
+}
+
+#rent .item {
+	line-height: 15px;
+	padding: 2px 0px;
+	font-size: 14px;
+	border-bottom: 1px solid #ebebeb;
+}
+
+#rent .item:hover {
+	background: #ebebeb;
+}
+
+#rent .item > div {
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+#rent .item .count {
+	width: 15px;
+	font-weight: bold;
+}
+
+#rent .actions > span {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin: 0;
+	color: #fff;
+	background: #999;
+	text-align: center;
+	cursor: pointer;
+	-ms-user-select: none; 
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	user-select: none;
+}
+
+#rent .actions > span:hover {
+	background: #555;
+}
+
+#rent .name {
+	line-height: 15px;
+	padding: 0;
+}
+
+#rent .name span {
+	display: inline;
+	padding: 0;
+	color: #999;
+	font-size: 12px;
+}
+
+#rent .item .rent {
+	float: right;
+	margin: 0;
+}
+
+#event .price {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .price label {
+	display: block;
+	float: left;
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #999;
+}
+
+#event .price p {
+	float: right;
+	font-size: 18px;
+	color: #222;
+}
+
+#event .price.dis {
+	display: none;
+}
+
+#event .price.dis label, #event .price.dis p {
+	color: #006917;
+	font-size: 90%;
+}
+
+#event .note {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .note textarea {
+	width: 100%;
+	height: 50px;
+	padding: 5px 10px;
+	outline: 1px solid #ddd;
+	outline-offset: -1px;
+	border: none;
+	box-sizing: border-box;
+}
+
+#event .actions {
+	margin: 10px 0 0 0;
+}
+
+#event .actions p {
+	line-height: 30px;
+	padding: 0px 10px;
+	margin: 0px 5px;
+	color: #fff;
+	cursor: pointer;
+}
+#event .actions p:hover {
+	background: #222;
+}
+
+#event .actions .book {
+	width: 250px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0px auto;
+	background: #56B01B;
+	text-align: center;
+}
+
+#event input[type="text"]:focus, #event textarea:focus {
+	outline: 1px solid #bbb;
+}
+
+#event .result {
+	font-size: 16px;
+	line-height: 15px;
+}
+
+#event .result p {
+	margin: 15px 0;
+	font-size: 24px;
+}
+
+#event .result.success p {
+	color: #56B01B;
+}
+
+#event .result.fail p {
+	color: #BA2125;
+}
+
+#event .result .details {
+	font-size: 14px;
+	margin: 15px 0;
+}
+
+#event .result .links {
+	line-height: 25px;
+	padding: 15px 0;
+	border-top: 1px solid #ddd;
+}
+
+#client {
+	display: none;
+	height: 65px;
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+#client .info {
+	float: left;
+	line-height: 20px;
+}
+
+#client .info p {
+}
+
+#client .info p span {
+	color: #999;
+}
+
+#client .name {
+	font-size: 18px;
+	line-height: 25px;
+}
+
+#client .card {
+	float: right;
+	line-height: 20px;
+	text-align: right;
+}
+
+#client .card p {
+}
+
+#client .card p span {
+	color: #56B01B;
+}
+
+#select-date {
+	padding: 20px 0;
+	text-align: center;
+	font-size: 18px;
+}
+
+#booking table .studios td{
+	height: 50px;
+	background: #ebebeb;
+}
+
+.studios a {
+	font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+

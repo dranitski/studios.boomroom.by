@@ -1,0 +1,641 @@
+body {
+	overflow-x: hidden;
+}
+
+#repaby {
+	margin: -30px 0 0 0;
+	padding: 15px 0 0 0;
+}
+
+#repaby .title {
+	text-align: center;
+}
+
+#repaby ul.menu {
+	display: block;
+	height: 50px;
+	line-height: 50px;
+	margin: 15px 0 0 0;
+	list-style: none;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 25px;
+	background: #ebebeb;
+}
+
+#repaby ul.menu li {
+	display: inline-block;
+	margin: 0 100px;
+}
+
+#repaby ul.menu li a {
+	display: block;
+	color: #222;
+	font-weight: bold;
+}
+
+#repaby ul.menu.sub {
+	margin: 0;
+	font-size: 22px;
+	background: none;
+}
+
+#repaby ul.menu.sub li {
+	display: inline-block;
+	margin: 0 70px;
+}
+
+#repaby ul.menu.sub li a {
+	font-weight: normal;
+	color: #777;
+}
+
+#repaby ul.menu li a.active {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#repaby .about {
+	height: 200px;
+}
+
+#repaby .about > p {
+	float: left;
+	width: 860px;
+	margin: 0;
+	color: #000;
+	font-family: Arial;
+	font-size: 16px;
+}
+
+#repaby .about img {
+	float: right;
+	height: 200px;
+	margin: 0;
+}
+
+#repaby table {
+	width: 100%;
+	border: none;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+#repaby table td {
+	width: 13.8%;
+	text-align: center;
+	border: 1px solid #ddd;
+	height: 25px;
+	vertical-align: top;
+}
+
+#repaby table td.holiday {
+	background: #555;
+	border: 1px solid #777;
+}
+
+#repaby table tr:hover td {
+	/* border-bottom: 1px solid #999; */
+}
+
+#repaby table td.min {
+	width: 55px!important;
+}
+
+#repaby .head {
+	margin: 15px 0 0 0;
+	font-size: 15px;
+	background: #ddd;
+}
+
+#repaby .head table td {
+	height: 30px;
+	vertical-align: middle;
+	color: #222;
+}
+
+#repaby .head table td.holiday {
+	background: #9c2222;
+	color: #fff;
+}
+
+#repaby .left, #repaby .right {
+	position: relative;
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url('nav.png') left top no-repeat;
+	cursor: pointer;
+}
+
+#repaby .left {
+	float: left;
+	margin: -26px 0 0 3px;
+	background-position: left top;
+}
+
+#repaby .left:hover { background-position: left bottom; }
+
+#repaby .right {
+	float: right;
+	margin: -26px 3px 0 0;
+	background-position: right top;
+}
+
+#repaby .right:hover { background-position: right bottom; }
+
+#repaby .h {
+	float: right;
+	margin: 2px 5px 0 0;
+	font-size: 12px;
+}
+
+#repaby table {
+	font-family: Arial;
+}
+
+#repaby table .item {
+	position: absolute;
+	width: inherit;
+	color: #222;
+	border: none;
+	background: rgba(140, 255, 112, .8);
+	outline: 1px solid #999;
+	cursor: pointer;
+	z-index: 1;
+}
+
+#repaby table .item.blocked {
+	background: rgba(255, 173, 140, 1);
+	cursor: default;
+	z-index: 2;
+}
+
+#repaby table .item.past {
+	background: #bbb;
+	cursor: default;
+}
+
+#repaby table .item.past:hover {
+	background: #bbb;
+}
+
+#repaby table .item:hover {
+	background: rgba(140, 255, 112, 1);
+	outline: 2px solid #777;
+	z-index: 99;
+}
+
+#repaby table .item.blocked:hover {
+	background: rgba(255, 173, 140, 1);
+}
+
+#repaby .item[data-dur="1"] { height: 26px; } #repaby .item[data-dur="1"] .time { margin-top: 5px; }
+#repaby .item[data-dur="2"] { height: 52px; } #repaby .item[data-dur="2"] .time { margin-top: 17px; }
+#repaby .item[data-dur="3"] { height: 78px; } #repaby .item[data-dur="3"] .time { margin-top: 29px; }
+#repaby .item[data-dur="4"] { height: 104px; } #repaby .item[data-dur="4"] .time { margin-top: 41px; }
+#repaby .item[data-dur="5"] { height: 130px; } #repaby .item[data-dur="5"] .time { margin-top: 53px; }
+#repaby .item[data-dur="6"] { height: 156px; } #repaby .item[data-dur="6"] .time { margin-top: 65px; }
+#repaby .item[data-dur="7"] { height: 182px; } #repaby .item[data-dur="7"] .time { margin-top: 77px; }
+#repaby .item[data-dur="8"] { height: 208px; } #repaby .item[data-dur="8"] .time { margin-top: 89px; }
+
+#repaby .item .time {
+	line-height: 15px;
+	font-size: 12px;
+	text-align: center;
+}
+
+#iw {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 450px;
+	top: 0;
+	left: 0;
+	background: #fff;
+	z-index: 100;
+}
+
+#event {
+	padding: 15px 20px;
+	font-family: Arial;
+}
+
+#event .title {
+	float: left;
+	line-height: 20px;
+	font-size: 16px;
+	color: #bbb;
+}
+
+#event .close {
+	float: right;
+	line-height: 20px;
+	font-size: 30px;
+	cursor: pointer;
+}
+
+#event .place {
+	clear: both;
+	line-height: 20px;
+	font-size: 18px;
+}
+
+#event .studio {
+	color: #222;
+	font-weight: bold;
+}
+
+#event .datetime {
+	margin: 15px 0 0 0;
+	padding: 0 0 10px 0;
+	font-size: 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .date {
+	float: left;
+}
+
+#event .time {
+	float: right;
+	color: #555;
+}
+
+#event .time select {
+	font-size: 20px;
+	color: #555;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+#event .client {
+	float: left;
+	min-width: 510px;
+	margin: 10px 0;
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .client input[type="text"], #event .client select[name="client_type"] {
+	float: left;
+	width: 180px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	font-size: 16px;
+	color: #555;
+	text-align: left;
+	border: none;
+	outline: 1px solid #ddd;
+	outline-offset: -1px;
+	box-sizing: border-box;
+}
+
+#event .client select[name="client_type"] {
+	width: 100px;
+}
+
+#event .client label {
+	float: left;
+	width: 180px;
+	height: 30px;
+	line-height: 30px;
+	margin: 5px 0 0 0;
+}
+
+#event .client input[name="card"] {
+	width: 100px;
+	height: 30px;
+	margin: 5px 0 0 0;
+}
+
+#event .client input[name="pass"] {
+	width: 100px;
+	height: 30px;
+	margin: 5px 0 0 0;
+}
+
+#card {
+}
+
+#card input[type="button"] {
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	margin: 5px 0 0 0;
+	color: #fff;
+	cursor: pointer;
+	border: 0;
+	outline: 0;
+}
+
+#card input[type="button"][data-state="0"]{
+	background: #999;
+}
+
+#card input[type="button"][data-state="1"]{
+	background: #56B01B;
+}
+
+#card input[type="button"]:hover {
+	background: #777;
+}
+
+#event .client .add {
+	margin: 10px 0 0 0;
+}
+
+#event .client .phone {
+	float: left;
+	width: 230px;
+}
+
+#event .client .phone span {
+	display: block;
+	float: left;
+	line-height: 30px;
+	padding: 0 10px 0 20px;
+	font-size: 16px;
+	color: #555;
+}
+
+#event .client .phone select {
+	display: block;
+	float: left;
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 16px;
+	color: #555;
+}
+
+#event .client .phone input {
+	width: 110px;
+}
+
+#event .nm {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	text-align: center;
+}
+
+#event .nm label {
+	display: inline-block;
+	min-width: 110px;
+	margin: 0 15px;
+	padding: 5px;
+	cursor: pointer;
+}
+
+#event > .nm input {
+	margin: 0 10px 0 0;
+}
+
+#rent {
+	clear: both;
+	float: left;
+	width: 50%;
+	height: 130px;
+	padding: 0 10px 10px 0;
+	line-height: 15px;
+	box-sizing: border-box;
+}
+
+#rent > p {
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #999;
+}
+
+#rent .list {
+	height: 100px;
+	margin: 10px 0 0 0;
+	overflow-y: auto;
+}
+
+#rent .item {
+	line-height: 15px;
+	padding: 2px 0px;
+	font-size: 14px;
+	border-bottom: 1px solid #ebebeb;
+}
+
+#rent .item:hover {
+	background: #ebebeb;
+}
+
+#rent .item > div {
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+#rent .item .count {
+	width: 15px;
+	font-weight: bold;
+}
+
+#rent .actions > span {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin: 0;
+	color: #fff;
+	background: #999;
+	text-align: center;
+	cursor: pointer;
+	-ms-user-select: none; 
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	user-select: none;
+}
+
+#rent .actions > span:hover {
+	background: #555;
+}
+
+#rent .name {
+	line-height: 15px;
+	padding: 0;
+}
+
+#rent .name span {
+	display: inline;
+	padding: 0;
+	color: #999;
+	font-size: 12px;
+}
+
+#rent .item .rent {
+	float: right;
+	margin: 0;
+}
+
+#event .prices {
+	float: right;
+	width: 50%;
+	height: 130px;
+	padding: 0 0 10px 10px;
+	box-sizing: border-box;
+}
+
+#event .price {
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .price label {
+	display: block;
+	float: left;
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #999;
+}
+
+#event .price p {
+	float: right;
+	font-size: 18px;
+	color: #222;
+}
+
+#event .price.dis {
+	margin: 10px 0 0 0;
+}
+
+#event .price.dis label, #event .price.dis p {
+	color: #006917;
+	font-size: 90%;
+}
+
+#event .note {
+	clear: both;
+	float: left;
+	width: 50%;
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	line-height: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#event .note textarea {
+	width: 100%;
+	height: 50px;
+	padding: 5px 10px;
+	background: #ebebeb;
+	outline: 1px solid #999;
+	outline-offset: -1px;
+	border: none;
+	box-sizing: border-box;
+}
+
+#event .actions {
+	margin: 10px 0 0 0;
+}
+
+#event .actions p {
+	line-height: 30px;
+	padding: 0px 10px;
+	margin: 0px 5px;
+	color: #fff;
+	cursor: pointer;
+}
+#event .actions p:hover {
+	background: #222;
+}
+
+#event .actions .book {
+	float: right;
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	margin: 10px 0 0 0;
+	background: #56B01B;
+	text-align: center;
+}
+
+#event input[type="text"]:focus, #event textarea:focus {
+	outline: 1px solid #bbb;
+}
+
+#event .result {
+	font-size: 16px;
+	line-height: 15px;
+}
+
+#event .result p {
+	margin: 15px 0;
+	font-size: 24px;
+}
+
+#event .result.success p {
+	color: #56B01B;
+}
+
+#event .result.fail p {
+	color: #BA2125;
+}
+
+#event .result .details {
+	font-size: 14px;
+	margin: 15px 0;
+}
+
+#event .result .links {
+	line-height: 25px;
+	padding: 15px 0;
+	border-top: 1px solid #ddd;
+}
+
+#client {
+	display: none;
+	height: 65px;
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+#client .info {
+	float: left;
+	line-height: 20px;
+}
+
+#client .info p {
+}
+
+#client .info p span {
+	color: #999;
+}
+
+#client .name {
+	font-size: 18px;
+	line-height: 25px;
+}
+
+#client .card {
+	float: right;
+	line-height: 20px;
+	text-align: right;
+}
+
+#client .card p {
+}
+
+#client .card p span {
+	color: #56B01B;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+	<items>
+		<item
+			id="2"
+			name="События"
+			link="events"
+			ord="2"
+		/>
+		<item
+			id="3"
+			name="Контакты"
+			link="contacts"
+			ord="3"
+		/>
+		<item
+			id="4"
+			name="Онлайн-бронирование"
+			link="booking"
+			ord="4"
+		/>
+	</items>
+</data>

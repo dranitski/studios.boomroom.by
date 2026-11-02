@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+	<items>
+		<item
+			id="1"
+			name="Boom"
+			link="rehearsal_bases/boom"
+			ord="1"
+		/>
+		<item
+			id="3"
+			name="Jam"
+			link="rehearsal_bases/jam"
+			ord="3"
+		/>
+		<item
+			id="4"
+			name="Точка"
+			link="rehearsal_bases/point"
+			ord="4"
+		/>
+	</items>
+</data>

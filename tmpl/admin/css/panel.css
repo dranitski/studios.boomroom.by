@@ -1,0 +1,590 @@
+#login input {
+	display: block;
+	margin: 10px auto;
+}
+
+#login input[type=text], #login input[type=password]{
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	font-family: Arial;
+	font-size: 16px;
+	text-align: center;
+	border: none;
+}
+#login input[type=submit] {
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	font-family: Arial;
+	font-size: 12px;
+	text-transform: uppercase;
+	text-align: center;
+	background: #001727;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+#login input[type=submit]:hover {
+	background: #2493d8;
+}
+#login select {
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	font-family: Arial;
+	font-size: 16px;
+	text-align: center;
+	border: none;
+}
+
+#about {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	margin: 5px 0px 5px 0px;
+}
+
+#version {
+	float: left;
+	margin: 0px 0px 0px 10px;
+	font-size: 12px;
+}
+
+#m-logo {
+	display: block;
+	float: right;
+	width: 92px;
+	height: 30px;
+	margin-right: 10px;
+	background: url('../images/m-logo.jpg');
+}
+
+#message {
+	display: none;
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	text-align: center;
+	z-index: 10000;
+}
+
+.okMsg {
+	background: #006917;
+}
+.errorMsg {
+	background: #960e00;
+}
+
+#head {
+	width: 100%;
+	height: 30px;
+	position: fixed;
+	top: 0;
+	background: #003153;
+	z-index: 1000;
+}
+
+#title {
+	float: left;
+	font-size: 20px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0px 0px 0px 10px;
+}
+
+#loguot {
+	float: right;
+	margin: 5px 10px 0px 0px;
+}
+
+#requests {
+}
+
+#requests > p {
+	float: right;
+	margin: 0 30px 0 0;
+	height: 30px;
+	line-height: 30px;
+	font-family: Arial;
+	font-size: 10px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+#requests > p span {
+	display: none;
+	float: left;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	margin: 5px 5px 0 0;
+	text-align: center;
+	font-size: 10px;
+	background: #F57E00;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+}
+
+#requests .w {
+	position: fixed;
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 30px;
+	left: 0;
+	background: rgba(0,0,0,.5);
+	overflow-y: auto;
+	z-index: 998;
+}
+
+#requests .list {
+	position: fixed;
+	width: 300px;
+	height: 100%;
+	top: 30px;
+	right: -300px;
+	padding: 10px 15px;
+	color: #555;
+	background: #fff;
+	z-index: 999;
+	box-shadow: 0px 50px 100px rgba(55, 55, 55, 0.77);
+	box-sizing: border-box;
+}
+
+#requests .item {
+	padding: 10px;
+	line-height: 15px;
+	font-size: 14px;
+}
+
+#requests .item .datetime {
+	font-size: 18px;
+}
+
+#requests .item .datetime a {
+	color: #003153;
+}
+#requests .item .datetime a:hover {
+	color: #2493d8;
+}
+
+#requests .item .date {
+	float: left;
+}
+
+#requests .item .time {
+	float: right;
+}
+
+#requests .item .place {
+	margin: 5px 0 0 0;
+}
+
+#requests .item .from {
+	margin: 5px 0 0 0;
+	font-size: 12px;
+}
+
+#requests .actions {
+	margin: 10px 0 0 0;
+}
+
+#requests .actions p {
+	line-height: 30px;
+	padding: 0px 10px;
+	margin: 0px 5px;
+	color: #fff;
+	cursor: pointer;
+}
+#requests .actions p:hover {
+	background: #222;
+}
+
+#requests .actions .apply {
+	float: left;
+	background: #006917;
+}
+
+#requests .actions .cancel {
+	float: right;
+	background: #999;
+}
+
+#sync {
+	display: none;
+	float: right;
+	width: 240px;
+	padding: 7px 10px 0 10px;
+	background: #003153;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+#sync p {
+	float: left;
+	height: 15px;
+	line-height: 15px;
+}
+
+#sync div {
+	display: inline-block;
+	margin: 0 0 0 10px;
+	width: 120px;
+	height: 15px;
+	background: url('../images/sync.gif') center center no-repeat;
+}
+
+#loguot input[type=submit]{
+	float: right;
+	width: 80px;
+	height: 20px;
+	line-height: 20px;
+	font-family: Arial;
+	font-size: 10px;
+	text-transform: uppercase;
+	text-align: center;
+	background: #001727;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+#loguot input[type=submit]:hover {
+	background: #2493d8;
+}
+
+#menu {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background: none;
+}
+
+#menu a {
+	margin: 0px 15px;
+	font-size: 14px;
+}
+#menu .active {
+	text-decoration: underline;
+}
+
+#submenu {
+	position: fixed;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	top: 30px;
+	background: #555;
+}
+
+#submenu a {
+	margin: 0px 15px;
+	font-size: 14px;
+}
+#submenu .active {
+	text-decoration: underline;
+}
+
+#main {
+	margin: 30px 0 0 0;
+	overflow: auto;
+}
+
+.inner {
+	background: #fff;
+	color: #555;
+	min-height: 500px;
+}
+
+#selectfile {
+	margin: 50px 0px 0px 0px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.w10 { width: 10px; }
+.w20 { width: 20px; }
+.w50 { width: 50px; }
+.w100 { width: 100px; }
+.w150 { width: 150px; }
+.w200 { width: 200px; }
+.w300 { width: 300px; }
+.w400 { width: 400px; }
+.w500 { width: 500px; }
+
+.mw200 { min-width: 200px; }
+.mw300 { min-width: 300px; }
+.mw400 { min-width: 400px; }
+.mw500 { min-width: 500px; }
+
+.block {
+	margin: 15px;
+	padding: 15px;
+	outline: 1px solid #ccc;
+	outline-offset: -1px;
+}
+
+.bHead {
+	height: 30px;
+	line-height: 30px;
+	background: #ebebeb;
+}
+
+.bName {
+	float: left;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 0px 10px;
+}
+
+.bName a {
+	color: #555;
+}
+
+.bActions {
+	float: right;
+	margin: 0px 10px;
+}
+
+.bActions a {
+	display: block;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	margin: 0px 5px;
+	color: #fff;
+	text-decoration: none;
+}
+
+.bActions a:hover {
+	background: #555;
+}
+
+.bActions .apply {
+	background: #006960;
+}
+.bActions .save {
+	background: #006917;
+}
+.bActions .close {
+	background: #960e00;
+}
+.bActions .generate {
+	background: darkblue;
+}
+
+/* Сормы */
+.boxTitle {
+	font-size: 18px;
+	font-weight: bold;
+	padding: 15px 10px;
+}
+
+.box {
+	padding: 10px;
+	border-bottom: 1px dashed #ccc;
+}
+
+.label {
+	float: left;
+	width: 200px;
+}
+.field {
+	float: left;
+}
+
+.checkbox {
+	display: block;
+	float: left;
+	margin: 0 15px 0 0;
+	cursor: pointer
+}
+
+.checkbox input {
+	display: block;
+	float: left;
+	margin: 2px 5px 0 0;
+}
+
+.box input[type=text] {
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	text-align: left;
+	outline: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+.box select {
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	text-align: left;
+	outline: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+.box textarea {
+	padding: 5px 10px;
+	outline: 1px solid #ccc;
+	border: none;
+	box-sizing: border-box;
+}
+
+.bContent .box input[type=text], .bContent .box select {
+	min-width: 10px;
+}
+
+.item {
+	border-bottom: 1px solid #ccc;
+}
+.item:hover {
+	background: #ebebeb;
+}
+
+.item .id {
+	float: left;
+	height: 10px;
+	line-height: 10px;
+	margin-left: 10px;
+	padding: 10px 0px;
+}
+
+.item .name {
+	float: left;
+	line-height: 10px;
+	margin-left: 10px;
+	padding: 10px 0px;
+}
+
+.item .name a {
+	color: #003153;
+	font-weight: bold;
+}
+
+.item .name span {
+	display: inline-block;
+	padding: 5px 15px 0 0;
+	color: #999;
+	font-size: 12px;
+}
+
+.item .param {
+	float: left;
+	height: 10px;
+	line-height: 10px;
+	margin-left: 10px;
+	padding: 10px 0px;
+}
+
+.item .text {
+	float: left;
+	height: 10px;
+	line-height: 10px;
+	margin-left: 10px;
+	padding: 10px 0px;
+}
+
+.lActions {
+	float: right;
+	height: 10px;
+	line-height: 10px;
+	padding: 10px 0px;
+	margin: 0px 10px;
+}
+
+.lActions a {
+	margin: 0px 5px;
+}
+
+.lActions a:hover {
+	color: #555!important;
+}
+
+.lActions a.edit {
+	color: #006960;
+}
+.lActions a.save {
+	color: #006917;
+}
+.lActions a.delete {
+	color: #960e00;
+}
+.lActions a.apply {
+	color: #00bf1d;
+}
+.lActions a.generate {
+	color: darkblue;
+}
+
+.filter {
+	color: #fff;
+	background: #555;
+	padding: 5px 0px;
+}
+
+.filter div {
+	float: left;
+	margin: 2px 0px 2px 10px;
+}
+
+.filter .apply {
+    cursor: pointer;
+    background: #ebebeb;
+    padding: 0px 5px;
+}
+
+.list .item {
+	line-height: 10px;
+	font-size: 12px;
+	padding: 5px 0px;
+}
+
+#client .level {
+	float: left;
+	line-height: 10px;
+	margin: 0 10px;
+	color: #222;
+}
+
+#client .level .step {
+	float: left;
+	line-height: 30px;
+	font-size: 18px;
+}
+#client .level .step span {
+	color: #888;
+}
+
+#client .level .events {
+	float: left;
+	margin: 0 15px;
+	line-height: 15px;
+}
+#client .level .events span {
+	color: #888;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

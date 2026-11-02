@@ -1,0 +1,14 @@
+AddDefaultCharset UTF-8
+
+php_value post_max_size 30M
+php_value upload_max_filesize 30M
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !^/index\.php
+RewriteCond %{REQUEST_URI} (/[^.]*|\.(php|html?|feed|pdf|raw))$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php [L]
+
+ErrorDocument 404 /404.php

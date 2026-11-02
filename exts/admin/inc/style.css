@@ -1,0 +1,310 @@
+.w10 { width: 10px; }
+.w20 { width: 20px; }
+.w50 { width: 50px; }
+.w100 { width: 100px; }
+.w200 { width: 200px; }
+.w300 { width: 300px; }
+.w400 { width: 400px; }
+
+.mw200 { min-width: 200px; }
+.mw300 { min-width: 300px; }
+.mw400 { min-width: 400px; }
+.mw500 { min-width: 500px; }
+
+.block {
+	margin: 15px;
+	padding: 15px;
+	outline: 1px solid #ccc;
+	outline-offset: -1px;
+}
+
+.bHead {
+	height: 30px;
+	line-height: 30px;
+	background: #ebebeb;
+}
+
+form .bHead {
+	margin-top: 15px;
+}
+
+.bName {
+	float: left;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 0px 10px;
+}
+
+.bActions {
+	float: right;
+	margin: 0px 10px;
+}
+
+.bActions a {
+	display: block;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	margin: 0px 5px;
+	color: #fff;
+	text-decoration: none;
+}
+
+.bActions a:hover {
+	background: #555;
+}
+
+.bActions .apply {
+	background: #006960;
+}
+.bActions .save {
+	background: #006917;
+}
+.bActions .close {
+	background: #960e00;
+}
+
+.bActions input {
+	width: 30px;
+	height: 20px;
+	line-height: 20px;
+	padding: 0px 0px 0px 5px;
+	margin-left: 10px;
+}
+
+/* Формы */
+.boxTitle {
+	font-size: 18px;
+	font-weight: bold;
+	padding: 15px 10px;
+}
+
+.box {
+	padding: 10px;
+	border-bottom: 1px dashed #ccc;
+}
+
+.label {
+	float: left;
+	width: 200px;
+}
+.field {
+	float: left;
+}
+
+.box input[type=text] {
+	min-width: 180px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	text-align: left;
+	outline: 1px solid #ccc;
+}
+
+.box select {
+	min-width: 180px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	text-align: left;
+	outline: 1px solid #ccc;
+}
+
+.sublabel {
+	float: left;
+	width: 100px;
+	padding-bottom: 15px;
+}
+.subfield {
+	float: left;
+	padding-bottom: 15px;
+}
+.subfield textarea {
+	width: 420px;
+	height: 200px;
+	padding: 10px;
+}
+
+.bContent .box input[type=text], .bContent .box select {
+	min-width: 10px;
+}
+
+.item {
+	border-bottom: 1px solid #ccc;
+}
+.item:hover {
+	background: #ebebeb;
+}
+
+.item .id {
+	float: left;
+	height: 10px;
+	line-height: 10px;
+	margin-left: 10px;
+	padding: 10px 0px;
+}
+
+.item .name {
+	float: left;
+	height: 10px;
+	line-height: 10px;
+	margin-left: 10px;
+	padding: 10px 0px;
+}
+
+.item .name a {
+	color: #003153;
+	font-weight: bold;
+}
+
+.item .param {
+	float: left;
+	height: 10px;
+	line-height: 10px;
+	margin-left: 10px;
+	padding: 10px 0px;
+}
+
+.item .parent {
+	float: left;
+	height: 10px;
+	line-height: 10px;
+	margin-left: 10px;
+	padding: 10px 0px;
+}
+
+.item .edited input[type=text] {
+	width: 80px;
+	margin-top: -10px;
+	padding: 0 10px;
+	text-align: left;
+}
+
+.lActions {
+	float: right;
+	height: 10px;
+	line-height: 10px;
+	padding: 10px 0px;
+	margin: 0px 10px;
+}
+
+.lActions a {
+	margin: 0px 5px;
+}
+
+.lActions a:hover {
+	color: #555!important;
+}
+
+.lActions a.edit {
+	color: #006960;
+}
+.lActions a.save {
+	color: #006917;
+}
+.lActions a.delete {
+	color: #960e00;
+}
+
+.filter {
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	background: #555;
+}
+
+.filter div {
+	float: left;
+	margin-left: 10px;
+}
+
+.table {
+	width: 100%;
+	border-spacing: 0px;
+}
+
+.table td {
+	padding: 0;
+	vertical-align: top;
+}
+
+.pActions {
+	height: 10px;
+	line-height: 10px;
+	padding: 10px 0px;
+	margin: 0px 10px;
+}
+
+.pActions a {
+	margin: 0px 5px;
+}
+
+.pActions a:hover {
+	color: #555!important;
+}
+
+.pActions a.add {
+	color: #006960;
+}
+
+.list .item {
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+}
+
+.mNum {
+	float: left;
+	width: 30px;
+}
+
+.mName {
+	cursor: pointer;
+}
+
+.mName, .mInput {
+	float: left;
+	width: 300px;
+}
+
+.mInput {
+	display: none;
+}
+
+.mInput input {
+	height: 20px!important;
+	line-height: 20px!important;
+	width: 270px;
+}
+
+.list .item .lActions {
+	padding: 5px 0px;
+}
+
+.dataField {
+}
+
+.dataField textarea {
+	width: 100%;
+	padding: 10px 0px;
+	height: 500px;
+	background: #feffc3;
+	border: none;
+	outline: 1px solid #ebebeb;
+	outline-offset: -1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

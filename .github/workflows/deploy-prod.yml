@@ -1,0 +1,68 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to production server
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+
+    steps:
+      - name: Install tools
+        run: apk add --no-cache rsync openssh-client git bash
+
+      - name: Checkout code
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git clone --depth 1 \
+            -b "$GITHUB_REF_NAME" \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" \
+            /repo
+
+      - name: Setup SSH
+        run: |
+          mkdir -p /root/.ssh
+          chmod 700 /root/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > /root/.ssh/id_rsa
+          chmod 600 /root/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> /root/.ssh/known_hosts
+
+      - name: Check secrets-release.php on server
+        run: |
+          ssh "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
+            "test -f '${{ secrets.DEPLOY_PATH }}/secrets-release.php'"
+
+      - name: Deploy files via rsync
+        working-directory: /repo
+        run: |
+          DEST="${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}"
+          RSYNC_OPTS="-azv --delete --no-perms --no-owner --no-group"
+
+          # Code directories
+          rsync $RSYNC_OPTS blocks/ $DEST/blocks/
+          rsync $RSYNC_OPTS exts/ $DEST/exts/
+          rsync $RSYNC_OPTS functions/ $DEST/functions/
+          rsync $RSYNC_OPTS includes/ $DEST/includes/
+          rsync $RSYNC_OPTS plugins/ $DEST/plugins/
+          rsync $RSYNC_OPTS tmpl/ $DEST/tmpl/
+
+          # Static content, never deleted on the server
+          rsync -azv --no-perms --no-owner --no-group files/ $DEST/files/
+          rsync -azv --no-perms --no-owner --no-group images/ $DEST/images/
+
+          # PHP entry points and static files (secrets-local.php is never deployed)
+          rsync -az --no-perms --no-owner --no-group \
+            404.php action.php api.php config.php index.php router.php \
+            .htaccess favicon.ico robots.txt \
+            $DEST/
+
+      - name: Remove obsolete files on server
+        run: |
+          ssh "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
+            "cd '${{ secrets.DEPLOY_PATH }}' && rm -rf sites cgi-bin error_log 1.txt test.php favicon_1.ico sync.php secrets-local.php"

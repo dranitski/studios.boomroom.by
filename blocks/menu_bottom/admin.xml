@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+	<items>
+		<item
+			id="1"
+			name="Музыкальная школа"
+			link="music_school"
+			ord="1"
+		/>
+		<item
+			id="2"
+			name="Репетиционные студии"
+			link="rehearsal_bases"
+			ord="2"
+		/>
+		<item
+			id="3"
+			name="Студия звукозаписи"
+			link="recording_studio"
+			ord="3"
+		/>
+		<item
+			id="4"
+			name="Аренда оборудования"
+			link="equipment_rental"
+			ord="4"
+		/>
+		<item
+			id="5"
+			name="О нас"
+			link="about"
+			ord="5"
+		/>
+		<item
+			id="6"
+			name="События"
+			link="events"
+			ord="6"
+		/>
+		<item
+			id="7"
+			name="Контакты"
+			link="contacts"
+			ord="7"
+		/>
+	</items>
+</data>

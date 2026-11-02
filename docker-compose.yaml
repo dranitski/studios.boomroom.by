@@ -1,0 +1,42 @@
+services:
+  www:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8004:80"
+    volumes:
+      - ./:/var/www/html/
+      - mysqld_sock:/var/run/mysqld
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      TZ: "Europe/Minsk"
+    # Local copy must not ping the real repa.by (admin schedule edits call it) or boomroom.by (sync.php)
+    extra_hosts:
+      - "repa.by:127.0.0.1"
+      - "boomroom.by:127.0.0.1"
+  db:
+    image: mysql:5.7.44
+    ports:
+      - "3308:3306"
+    command: mysqld --sql_mode="" --character-set-server=utf8 --explicit-defaults-for-timestamp=1
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      TZ: "Europe/Minsk"
+    volumes:
+      - studios_mysql:/var/lib/mysql
+      - mysqld_sock:/var/run/mysqld
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+      - ./secrets-local.php:/site-config.php:ro
+    healthcheck:
+      # TCP, not the socket: init scripts run a temporary --skip-networking server first
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--protocol=TCP", "-u", "root", "-pmysql"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+volumes:
+  studios_mysql:
+  mysqld_sock:
