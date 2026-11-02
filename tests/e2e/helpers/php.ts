@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { appendFileSync, mkdirSync } from 'fs';
 
 // PHP output with display_errors=On (local and e2e images)
-const PHP_ERROR = /(Fatal error|Parse error|Warning|Deprecated|Notice|Uncaught)(<\/b>)?:\s+(.*?) in (<b>)?\/var\/www\/html\/(\S+?)(<\/b>)? on line (<b>)?(\d+)/g;
+const PHP_ERROR = /(Fatal error|Parse error|Warning|Deprecated|Notice)(<\/b>)?:\s+([\s\S]*?) in (<b>)?\/var\/www\/html\/([^\s:<]+)(<\/b>)?(?::(\d+)| on line (<b>)?(\d+))/g;
 
 // Messages that were notices on PHP 5.6 or are PHP 8.1+ deprecations: behaviour is unchanged,
 // so they are reported (test-results/php-notices.log) but do not fail tests
@@ -15,7 +15,7 @@ const BENIGN = [
 ];
 
 export function phpErrors(body: string): string[] {
-  return [...body.matchAll(PHP_ERROR)].map((m) => `${m[1]}: ${m[3].replace(/<[^>]+>/g, '')} @ ${m[5]}:${m[8]}`);
+  return [...body.matchAll(PHP_ERROR)].map((m) => `${m[1]}: ${m[3].replace(/<[^>]+>/g, '').split('\n')[0]} @ ${m[5]}:${m[7] ?? m[9]}`);
 }
 
 export function expectNoPhpErrors(body: string, context: string): void {
@@ -26,4 +26,5 @@ export function expectNoPhpErrors(body: string, context: string): void {
     appendFileSync('test-results/php-notices.log', benign.map((e) => `${context}\t${e}\n`).join(''));
   }
   expect(all.filter((e) => !benign.includes(e)), `PHP errors on ${context}`).toEqual([]);
+  expect(body, `DB error on ${context}`).not.toContain('Ошибка базы данных');
 }

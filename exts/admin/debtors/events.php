@@ -136,7 +136,7 @@
 		// Аренда оборудования
 		$eqs_price = 0;
 		$eqs = json_decode($event->eqs);
-		if (count($eqs)) {
+		if (cnt($eqs)) {
 			
 			$hours = ($event->start < 23) ? $event->end - $event->start : 7;
 			

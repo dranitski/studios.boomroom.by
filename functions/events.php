@@ -5,6 +5,12 @@
 	// Массив свободных количества свободных инструментов
 	function getFreeEqs($equipments, $sid, $date, $start, $end, $weekly = false) {
 	
+		// часы вне суток или конец раньше начала дают бесконечный цикл ниже
+		$start = (int) $start; $end = (int) $end;
+		if ($start < 0 or $start > 23 or $end < 0 or $end > 24 or ($start < 23 and $end <= $start)) {
+			return array();
+		}
+	
 		if ($weekly == false) {
 			
 			$events = loadObjectList("SELECT * FROM `events` WHERE `date` = '{$date}' AND `rid` IN (SELECT `id` FROM `rooms` WHERE `sid` = {$sid} ORDER BY `start` ASC)");
@@ -21,7 +27,7 @@
 			// Массив количеств инструментов в этом событии
 			$eqs = json_decode($event->eqs);
 			$event_eqs = array();
-			if (count($eqs)) { foreach ($eqs as $eq) { $event_eqs[$eq->id] = $eq->count; } }
+			if (cnt($eqs)) { foreach ($eqs as $eq) { $event_eqs[$eq->id] = $eq->count; } }
 			
 			// Дневная
 			if ($event->start < 23) {

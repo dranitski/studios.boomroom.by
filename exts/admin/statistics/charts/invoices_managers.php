@@ -81,7 +81,7 @@
 				<div class="label pl-<?php echo $char; ?>"></div>
 				<div class="name"><?php echo $manager->name; ?></div>
 				<div class="value"><?php echo array_sum($counts[$manager->id]); ?></div>
-				<div class="pc"><?php echo round(array_sum($counts[$manager->id]) / count($invoices) * 100); ?>%</div>
+				<div class="pc"><?php echo round(array_sum($counts[$manager->id]) / cnt($invoices) * 100); ?>%</div>
 				<div class="clear"></div>
 			</div>
 		<?php } ?>
@@ -89,7 +89,7 @@
 			<div class="part">
 				<div class="label"></div>
 				<div class="name">Всего</div>
-				<div class="value"><?php echo count($invoices); ?></div>
+				<div class="value"><?php echo cnt($invoices); ?></div>
 				<div class="pc">100%</div>
 				<div class="clear"></div>
 			</div>
@@ -237,7 +237,7 @@
 
 		new Chartist.Pie('#ch<?php echo $id; ?> .pie', data, {
 			labelInterpolationFnc: function(value) {
-				return Math.round(value / <?php echo count($invoices); ?> * 100) + '%';
+				return Math.round(value / <?php echo cnt($invoices); ?> * 100) + '%';
 			}
 		});
 		

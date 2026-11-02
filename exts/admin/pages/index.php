@@ -108,7 +108,6 @@ if(getVar('act', 'get') == 'add' or getInt('edit', 'get')) {
 	
 </script>
 <script type="text/javascript">
-	tinymce.PluginManager.load('moxiecut', '/plugins/tinymce/plugins/moxiecut/plugin.min.js');
 	tinymce.init({
 	    
 		language: "ru",
@@ -117,10 +116,10 @@ if(getVar('act', 'get') == 'add' or getInt('edit', 'get')) {
 		plugins: [
 			"autosave advlist autolink lists link image charmap print preview anchor",
 			"searchreplace visualblocks code fullscreen",
-			"insertdatetime media table contextmenu paste moxiecut",
+			"insertdatetime media table contextmenu paste",
 			"textcolor"
 		],
-		toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor | bullist numlist outdent indent | link unlink insertfile image media",
+		toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor | bullist numlist outdent indent | link unlink image media",
 		height: 300,
 		image_advtab: true,
 		relative_urls: false,

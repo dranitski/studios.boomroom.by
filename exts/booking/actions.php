@@ -21,7 +21,17 @@
 					$card = getVar('card', 'post');
 					$pass = getVar('pass', 'post');
 			
-					if ($id = loadResult("SELECT `id` FROM `clients` WHERE `card` = '{$card}' AND `pass` = '{$pass}'")) {
+					$id = ($card !== '' and $pass !== '') ? loadResult("SELECT `id` FROM `clients` WHERE `card` = '{$card}' AND `pass` = '{$pass}'") : null;
+					
+					// данные клиента отдаются только после проверки карты и пароля в этой сессии
+					$_SESSION['booking_cid'] = $id ? (int) $id : 0;
+					
+					if (!$id) {
+						// замедляет перебор 4-значных паролей
+						sleep(1);
+					}
+					
+					if ($id) {
 						
 						?>
 						$('#card input[type="button"]').attr('data-state', 1).data('state', 1);
@@ -34,6 +44,11 @@
 				case 'get':
 					
 					$id = getInt('id', 'post');
+					
+					if (!$id or empty($_SESSION['booking_cid']) or $_SESSION['booking_cid'] != $id) {
+						header('HTTP/1.1 403 Forbidden');
+						exit;
+					}
 					
 					$client = loadObject("SELECT * FROM `clients` WHERE `id` = {$id}");
 					$contacts = loadObjectList("SELECT * FROM `client_contacts` WHERE `cid` = {$id}");
@@ -55,14 +70,14 @@
 					<?php if ($client->note) { ?><i><?php echo $client->note; ?></i><?php } ?>
 					<?php if (count($contact_list)) { ?>
 					<p>Контакты</p>
-					<?php echo implode($contact_list, ", "); ?>
+					<?php echo implode(", ", $contact_list); ?>
 					<?php } ?>
 					*/
 					?>
 					
 					<div class="info">
 						<div class="name"><?php echo $client->name; ?></div>
-						<?php if (count($contacts)) { $x = 0; foreach ($contacts as $contact) { if ($x == 2) break; ?>
+						<?php if (cnt($contacts)) { $x = 0; foreach ($contacts as $contact) { if ($x == 2) break; ?>
 						<p><?php echo $contact->phone; ?> <span>(<?php echo $contact->name; ?>)</span></p>
 						<?php $x++; } } ?>
 					</div>
@@ -273,8 +288,18 @@
 					$client_phone = getVar('client_phone', 'post');
 					$note = getVar('note', 'post');
 					$cid = getInt('cid', 'post');
-					$eqs = stripslashes(getVar('eqs', 'post', 0, 0)); // Получаем сразу json
+					$eqs = getEqs();
 					$price = getVar('price', 'post');
+					
+					// бронь от имени клиента - только после проверки его карты
+					if ($cid and (empty($_SESSION['booking_cid']) or $_SESSION['booking_cid'] != $cid)) {
+						$cid = 0;
+					}
+					
+					if (!$room or $start < 0 or $start > 23 or $end < 0 or $end > 24 or ($start < 23 and $end <= $start) or !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+						header('HTTP/1.1 400 Bad Request');
+						exit;
+					}
 					
 					if ($cid) {
 						
@@ -322,7 +347,7 @@
 						$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 						$date = date('d.m.Y', strtotime($event->date));
 						$log = "Добавление события (заявка). ID:{$id}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-						runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+						addLog($log);
 					}
 					
 					if ($isHave) {
@@ -383,7 +408,7 @@
 						$data = urlencode(json_encode($data, JSON_UNESCAPED_UNICODE));
 						
 						// file_get_contents("http://repa.by/update.php?cmd=10&data={$data}");
-						file_get_contents("https://repa.by/action?ext=update&view=bases&action=boom&data={$data}");
+						repaNotify("https://repa.by/action?ext=update&view=bases&action=boom&data={$data}");
 					}
 					
 				break;
@@ -408,7 +433,7 @@
 					// Оборудование
 					$equipments = loadObjectList("SELECT * FROM `equipments` WHERE `sid` = {$sid} AND `count` > 0");
 					
-					if (count($equipments)) {
+					if (cnt($equipments)) {
 					
 						$eqs_free = getFreeEqs($equipments, $sid, $date, $start, $end);
 					

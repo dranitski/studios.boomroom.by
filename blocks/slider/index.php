@@ -6,12 +6,12 @@
 	
 if ($state) {
 		
-	if (count($params->slides)) {
+	if (cnt($params->slides)) {
 		
 		// if(strpos($_SERVER['REQUEST_URI'], "music_school/education")) { $class = " h300"; }
 		?>
 		<?php
-		if (count($params->slides) == 1) {
+		if (cnt($params->slides) == 1) {
 		?>
 		<div id="slider">
 			<div id="slider-sh"></div>
@@ -45,7 +45,7 @@ if ($state) {
 		<script type="text/javascript">
 		$(function() {
 			
-			<?php if (count($params->slides) > 1) { ?>
+			<?php if (cnt($params->slides) > 1) { ?>
 			$('#slide').slidesjs({
 				
 				width: 1200,

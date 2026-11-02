@@ -48,7 +48,7 @@
 	
 	$expenses = loadObjectList($sql);
 	
-	if (count($expenses) and $aid) {
+	if (cnt($expenses) and $aid) {
 		
 		$admin_dates = array();
 		foreach ($expenses as $expense) {
@@ -65,7 +65,7 @@
 	
 	// Подсчет арендного оборудования
 	// Исключение событий, если выбран админ
-	if (count($events)) {
+	if (cnt($events)) {
 		
 		$events2 = array();
 		$equipments = array();
@@ -83,7 +83,7 @@
 			$eqs_price_sum = 0;
 			$event->rent_price = $event->price;
 			
-			if (count($eqs)){
+			if (cnt($eqs)){
 				
 				foreach($eqs as $eq) {
 					
@@ -146,7 +146,7 @@
 	<div class="block w50p">
 		<div class="bHead"><div class="bName">Репетиции</div><span class="showhide" data-n="1">Показать список</span></div>
 		<div class="list" data-n="1" data-s="0">
-		<?php if (count($events)) { ?>
+		<?php if (cnt($events)) { ?>
 			<div class="item head">
 				<div class="num">#</div>
 				<div class="date">Дата</div>
@@ -265,7 +265,7 @@
 	<div class="block w50p">
 		<div class="bHead"><div class="bName">Аренда оборудования</div><span class="showhide" data-n="2">Показать список</span></div>
 		<div class="list" data-n="2" data-s="0">
-		<?php if (count($equipments)) { ?>
+		<?php if (cnt($equipments)) { ?>
 			<div class="item">
 				<div class="num">#</div>
 				<div class="w200">Наименование</div>
@@ -309,7 +309,7 @@
 	<div class="block w50p">
 		<div class="bHead"><div class="bName">Дополнительные доходы</div><span class="showhide" data-n="3">Показать список</span></div>
 		<div class="list" data-n="3" data-s="0">
-		<?php if (count($incomes)) { ?>
+		<?php if (cnt($incomes)) { ?>
 			<div class="item">
 				<div class="num">#</div>
 				<div class="date">Дата</div>
@@ -349,7 +349,7 @@
 	<div class="block w50p">
 		<div class="bHead"><div class="bName">Расходы</div><span class="showhide" data-n="4">Показать список</span></div>
 		<div class="list" data-n="4" data-s="0">
-		<?php if (count($expenses)) { ?>
+		<?php if (cnt($expenses)) { ?>
 			<div class="item">
 				<div class="num">#</div>
 				<div class="date">Дата</div>

@@ -48,7 +48,7 @@
 				
 					?>
 					<div class="title">Настройка шаблона</div>
-					<?php if (count($templates) > 1) { ?>
+					<?php if (cnt($templates) > 1) { ?>
 					<div class="templates">
 					Варианты:
 					<select onchange="changeTemplate(this);">

@@ -9,7 +9,7 @@
 	?>
 		<?php foreach ($items as $n => $item) { ?>
 		<a href="/<?php echo $item->link; ?>" class="m<?php echo $item->id; ?><?php echo ($item->active) ? " active" : ""; ?>"><?php echo $item->name; ?></a>
-		<?php echo ($n != count($items) - 1) ? "<hr/>" : "";?>
+		<?php echo ($n != cnt($items) - 1) ? "<hr/>" : "";?>
 		<?php } ?>
 	<?
 	}

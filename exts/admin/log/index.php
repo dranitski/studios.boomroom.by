@@ -33,7 +33,7 @@
 	</div>
 	
 	<div id="log">
-	<?php if (count($log)) { ?>
+	<?php if (cnt($log)) { ?>
 	<?php foreach ($log as $item) { ?>
 	<div class="item">
 		<div class="id w50"><?php echo $item->id; ?></div>

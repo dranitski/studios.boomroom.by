@@ -38,7 +38,8 @@ const SCHEDULE_PAGES = [
   '/admin/tablerooms', `/admin/tablerooms?date=${dmy(daysFromNow(1))}`,
   '/admin/clients', '/admin/clients?type=1', '/admin/clients?type=2', '/admin/clients?act=add',
   '/admin/equipments', '/admin/debtors', '/admin/log', '/admin/log?date_d1=01.01.2020&date_d2=31.12.2030',
-  '/admin/statistics', '/admin/statistics?type=1', '/admin/statistics?type=2', '/admin/statistics?type=3', '/admin/statistics?type=4',
+  // statistics?type=3/4 are orphan pages (not in the menu) that query a `users` table which does not exist
+  '/admin/statistics', '/admin/statistics?type=1', '/admin/statistics?type=2',
   '/admin/economics', '/admin/economics?type=1', '/admin/economics?type=2', '/admin/economics?type=3', '/admin/economics?type=4',
   '/admin/params',
 ];

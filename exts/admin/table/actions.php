@@ -1,7 +1,5 @@
 <?php
 	
-	session_start();
-	
 	defined('access') or die ('no access');
 	
 	$subtask = getVar('subtask', 'post');
@@ -175,8 +173,7 @@
 					$client_name = getVar('client_name', 'post');
 					$client_phone = getVar('client_phone', 'post');
 					$note = getVar('note', 'post');
-					// $eqs = json_decode(stripslashes(getVar('eqs', 'post', 0, 0))); // $eqs[0]->id, $eqs[0]->count
-					$eqs = stripslashes(getVar('eqs', 'post', 0, 0)); // Получаем сразу json
+					$eqs = getEqs();
 					$price = getVar('price', 'post');
 					$price_eqs = getVar('price_eqs', 'post');
 					$pay_type = getInt('pay_type', 'post');
@@ -215,7 +212,7 @@
 							
 						// Журнал
 						$log = "Добавление клиента. {$client_name}. ID:{$cid}";
-						runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+						addLog($log);
 					}
 					
 					if ($id) {
@@ -244,10 +241,10 @@
 					$date = date('d.m.Y', strtotime($event->date));
 					$action_name = ($event_id) ? 'Добавление' : 'Редактирование';
 					$log = "{$action_name} события. ID:{$id}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 					
 					// Обновление расписания
-					file_get_contents("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$rid}");
+					repaNotify("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$rid}");
 					
 				break;
 				
@@ -375,7 +372,7 @@
 							if ($client->dis > 0) { $discount = "Скидка {$client->dis}%"; }
 							
 							$contact_list = array();
-							if (count($contacts)) {
+							if (cnt($contacts)) {
 								
 								foreach ($contacts as $contact) {
 								
@@ -416,9 +413,9 @@
 						</div>
 						<div class="info" style="display: block;">
 							<?php if ($client->note) { ?><i><?php echo $client->note; ?></i><?php } ?>
-							<?php if (count($contact_list)) { ?>
+							<?php if (cnt($contact_list)) { ?>
 							<p>Контакты <?php if ($debt > 0) { ?><span class="debt">Долг: <b><?php echo $debt; ?></b></span><?php } ?></p>
-							<?php echo implode($contact_list, ", "); ?>
+							<?php echo implode(", ", $contact_list); ?>
 							<?php } ?>
 						</div>
 					</div>
@@ -436,7 +433,7 @@
 							// Оборудование
 							$equipments = loadObjectList("SELECT * FROM `equipments` WHERE `sid` = {$sid} AND `count` > 0");
 							
-							if (count($equipments)) {
+							if (cnt($equipments)) {
 							
 								if (!$disabled) {
 								// if ($event->state != 2) {
@@ -592,10 +589,10 @@
 					$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 					$date = date('d.m.Y', strtotime($event->date));
 					$log = "Подтверждение события. ID:{$id}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 					
 					// Обновление расписания
-					file_get_contents("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
+					repaNotify("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
 				
 				break;
 				
@@ -613,7 +610,7 @@
 					$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 					$date = date('d.m.Y', strtotime($event->date));
 					$log = "Оплата события. ID:{$id}. Сумма: {$pay}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 				
 				break;
 				
@@ -631,10 +628,10 @@
 					$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 					$date = date('d.m.Y', strtotime($event->date));
 					$log = "Сохранение комментария. ID:{$id}. Текст: {$note}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 					
 					// Обновление расписания
-					file_get_contents("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
+					repaNotify("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
 				
 				break;
 				
@@ -652,10 +649,10 @@
 					// Журнал
 					$date = date('d.m.Y', strtotime($event->date));
 					$log = "Удаление события. ID:{$id}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 					
 					// Обновление расписания
-					file_get_contents("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
+					repaNotify("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
 				
 				break;
 				
@@ -700,10 +697,10 @@
 					$date = date('d.m.Y', strtotime($event->date));
 					$action_name = ($state == 4) ? 'Отмена события' : 'Неявка на событие';
 					$log = "{$action_name}. ID:{$id}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 					
 					// Обновление расписания
-					file_get_contents("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
+					repaNotify("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
 				
 				break;
 				
@@ -725,7 +722,8 @@
 						
 						foreach ($event as $name => $value) {
 							
-							if ($name == 'id' or $name == 'date' or $name == 'pay' or $name == 'state') continue;
+							// в event_weekly есть не все колонки events
+							if (!in_array($name, array('rid', 'start', 'end', 'cid', 'nm', 'note', 'eqs', 'price_eqs', 'price', 'dis'))) continue;
 							
 							$fields[$name] = $value;
 						}
@@ -733,7 +731,7 @@
 						$sql = "INSERT INTO `event_weekly` (`day`";
 						foreach ($fields as $name => $value) { $sql .= ", `{$name}`"; }
 						$sql .= ") VALUES ({$day}";
-						foreach ($fields as $name => $value) { $sql .= ", '{$value}'"; }
+						foreach ($fields as $name => $value) { $sql .= ", '".dbEscape($value)."'"; }
 						$sql .= ")";
 						
 						runSql($sql);
@@ -745,7 +743,7 @@
 						$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 						$day_week = getDayWeek($event->day);
 						$log = "Добавление события в постоянные. ID:{$id}. Сумма: {$pay}. {$event->room}. {$day_week}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-						runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+						addLog($log);
 					}
 				
 				break;
@@ -839,7 +837,7 @@
 						if ($client->dis > 0) { $discount = "Скидка {$client->dis}%"; }
 						
 						$contact_list = array();
-						if (count($contacts)) {
+						if (cnt($contacts)) {
 							
 							foreach ($contacts as $contact) {
 							
@@ -857,9 +855,9 @@
 						</select>
 						<div class="info" style="display: block;">
 							<?php if ($client->note) { ?><i><?php echo $client->note; ?></i><?php } ?>
-							<?php if (count($contact_list)) { ?>
+							<?php if (cnt($contact_list)) { ?>
 							<p>Контакты <?php if ($debt > 0) { ?><span class="debt">Долг: <b><?php echo $debt; ?></b></span><?php } ?></p>
-							<?php echo implode($contact_list, ", "); ?>
+							<?php echo implode(", ", $contact_list); ?>
 							<?php } ?>
 						</div>
 					</div>
@@ -876,7 +874,7 @@
 							// Оборудование
 							$equipments = loadObjectList("SELECT * FROM `equipments` WHERE `sid` = {$sid} AND `count` > 0");
 							
-							if (count($equipments)) {
+							if (cnt($equipments)) {
 								
 								// Свободное оборудование
 								$eqs_free = getFreeEqs($equipments, $sid, $day, $start, $event->end, true);
@@ -944,7 +942,7 @@
 					$sql = "INSERT INTO `events` (`date`, `note`";
 					foreach ($fields as $name => $value) { $sql .= ", `{$name}`"; }
 					$sql .= ") VALUES ('{$date}', '{$note}'";
-					foreach ($fields as $name => $value) { $sql .= ", '{$value}'"; }
+					foreach ($fields as $name => $value) { $sql .= ", '".dbEscape($value)."'"; }
 					$sql .= ")";
 					
 					runSql($sql); $event_id = insertId();
@@ -958,7 +956,7 @@
 					$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 					$date = date('d.m.Y', strtotime($event->date));
 					$log = "Добавление события из постоянки. ID:{$id}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 				
 				break;
 				
@@ -984,7 +982,7 @@
 					$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `event_weekly` AS a WHERE a.`id` = {$id}");
 					$day_week = getDayWeek($event->day);
 					$log = "Исключение постоянного события. ID:{$id}. {$event->room}. {$day_week}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 				
 				break;
 			}
@@ -1007,7 +1005,7 @@
 					// Оборудование
 					$equipments = loadObjectList("SELECT * FROM `equipments` WHERE `sid` = {$sid} AND `count` > 0");
 					
-					if (count($equipments)) {
+					if (cnt($equipments)) {
 					
 						$eqs_free = getFreeEqs($equipments, $sid, $date, $start, $end);
 					
@@ -1056,7 +1054,7 @@
 					$contacts = loadObjectList("SELECT * FROM `client_contacts` WHERE `cid` = {$id}");
 					
 					$contact_list = array();
-					if (count($contacts)) {
+					if (cnt($contacts)) {
 						
 						foreach ($contacts as $contact) {
 						
@@ -1069,9 +1067,9 @@
 				
 					?>
 					<?php if ($client->note) { ?><i><?php echo $client->note; ?></i><?php } ?>
-					<?php if (count($contact_list)) { ?>
+					<?php if (cnt($contact_list)) { ?>
 					<p>Контакты <?php if ($debt > 0) { ?><span class="debt">Долг: <b><?php echo $debt; ?></b></span><?php } ?></p>
-					<?php echo implode($contact_list, ", "); ?>
+					<?php echo implode(", ", $contact_list); ?>
 					<?php } ?>
 					<?php
 				
@@ -1087,7 +1085,7 @@
 					
 						$items = loadObjectList("SELECT `cid`, (SELECT `name` FROM `clients` WHERE `id` = `cid`) AS `client` FROM `client_contacts` WHERE REPLACE(REPLACE(REPLACE(`phone`, '+', ''), ' ', ''), '-', '') = '{$number}'");
 						
-						if (count($items)) {
+						if (cnt($items)) {
 						?>
 						<p>Найденные клиенты:</p>
 						<?php foreach ($items as $item) { ?>
@@ -1129,7 +1127,7 @@
 				
 					$events = loadObjectList("SELECT * FROM `events` WHERE `state` = 3");
 					
-					if (count($events)) {
+					if (cnt($events)) {
 					foreach ($events as $event) {
 						
 						$date = date('d.m.Y', strtotime($event->date));
@@ -1145,7 +1143,7 @@
 							$contacts = loadObjectList("SELECT * FROM `client_contacts` WHERE `cid` = {$event->cid}");
 							
 							$contact_list = array();
-							if (count($contacts)) {
+							if (cnt($contacts)) {
 								
 								foreach ($contacts as $contact) {
 								
@@ -1156,7 +1154,7 @@
 								}
 							}
 							
-							$client_info = "<b>{$client->name}</b><br/>".implode($contact_list, ", ");
+							$client_info = "<b>{$client->name}</b><br/>".implode(", ", $contact_list);
 						}
 						else {
 							
@@ -1211,10 +1209,10 @@
 					$event = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 					$date = date('d.m.Y', strtotime($event->date));
 					$log = "Подтверждение события. ID:{$id}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 					
 					// Обновление расписания
-					file_get_contents("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
+					repaNotify("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
 				
 				break;
 	
@@ -1237,10 +1235,10 @@
 					// Журнал
 					$date = date('d.m.Y', strtotime($event->date));
 					$log = "Отклонение заявки (удаление события). ID:{$id}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 					
 					// Обновление расписания
-					file_get_contents("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
+					repaNotify("https://repa.by/action?ext=update&view=bases&action=boom-update&rid={$event->rid}");
 				
 				break;
 				

@@ -22,8 +22,9 @@
 		
 		$secure = (isset($_SERVER['HTTPS']) and $_SERVER['HTTPS'] != 'off');
 		
-		// host-only cookie (без domain), недоступна из JS
-		setcookie("user_{$role}", $value, $expires, '/', '', $secure, true);
+		// host-only cookie (без domain), недоступна из JS; SameSite=Lax не отправляет ее в POST с чужих сайтов (CSRF)
+		$cookie = "user_{$role}=".rawurlencode($value).'; Expires='.gmdate('D, d M Y H:i:s', $expires).' GMT; Max-Age='.max(0, $expires - time()).'; Path=/; HttpOnly; SameSite=Lax';
+		header('Set-Cookie: '.$cookie.($secure ? '; Secure' : ''), false);
 	}
 	
 	function authLogin($role) {
@@ -54,7 +55,7 @@
 		$value = isset($_COOKIE["user_{$role}"]) ? (string) $_COOKIE["user_{$role}"] : '';
 		$parts = explode('.', $value, 2);
 		
-		if (count($parts) != 2 or !ctype_digit($parts[0]) or (int) $parts[0] < time()) {
+		if (cnt($parts) != 2 or !ctype_digit($parts[0]) or (int) $parts[0] < time()) {
 			return false;
 		}
 		

@@ -17,12 +17,11 @@
 				// Формируем данные
 				case 'add': case 'edit':
 				
-					$json = getVar('data', 'post', 0, 0);
-					$data = json_decode(stripslashes($json), false);
+					$data = getFormFields('data');
 					
 					$fields = array();
 					foreach ($data as $n => $field) { $fields[$field->name] = $field->value; }
-					$fields = (object) $fields;
+					$fields = (object) $fields; $fields->sid = (int) $fields->sid; $fields->aid = (int) $fields->aid;
 					
 					$fields->date = date('Y-m-d', strtotime($fields->date));
 					
@@ -85,12 +84,11 @@
 				// Формируем данные
 				case 'add': case 'edit':
 				
-					$json = getVar('data', 'post', 0, 0);
-					$data = json_decode(stripslashes($json), false);
+					$data = getFormFields('data');
 					
 					$fields = array();
 					foreach ($data as $n => $field) { $fields[$field->name] = $field->value; }
-					$fields = (object) $fields;
+					$fields = (object) $fields; $fields->sid = (int) $fields->sid; $fields->aid = (int) $fields->aid;
 					
 					$fields->date = date('Y-m-d', strtotime($fields->date));
 					

@@ -67,7 +67,7 @@
 			// Для BOOM
 			// if ($event->sid == 1) {
 				
-				runSql("INSERT INTO `incomes` (`sid`, `aid`, `eid`, `name`, `sum`, `date`, `created`) VALUES ({$event->sid}, 1, {$id}, '{$string}', '{$pay}', NOW(), NOW())");
+				runSql("INSERT INTO `incomes` (`sid`, `aid`, `eid`, `name`, `sum`, `date`, `created`) VALUES ({$event->sid}, 1, {$id}, '".dbEscape($string)."', '{$pay}', NOW(), NOW())");
 				
 				$id = insertId();
 				toSyncItem(1, 'incomes', $id);
@@ -82,7 +82,7 @@
 			
 			// Журнал
 			$log = $string;
-			runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+			addLog($log);
 			
 			echo getMsg("Платеж сохранен.", "ok", "location.reload();");
 		
@@ -101,7 +101,7 @@
 			$date = date('d.m.Y', strtotime($event->date));
 			
 			$log = "Удаление долга (события). ID:{$id}. {$event->room}. {$date}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-			runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+			addLog($log);
 			
 			echo getMsg("Долг удален", "ok", "location.reload();");
 		

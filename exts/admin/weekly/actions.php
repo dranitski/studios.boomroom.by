@@ -1,6 +1,5 @@
 <?php
 	
-	session_start();
 	
 	defined('access') or die ('no access');
 	
@@ -144,7 +143,7 @@
 					$cid = getInt('cid', 'post');
 					$nm = getInt('nm', 'post');
 					$note = getVar('note', 'post');
-					$eqs = stripslashes(getVar('eqs', 'post', 0, 0)); // Получаем сразу json
+					$eqs = getEqs();
 					$price = getVar('price', 'post');
 					$price_eqs = getVar('price_eqs', 'post');
 					$dis = getVar('dis', 'post');
@@ -170,7 +169,7 @@
 					$day_week = getDayWeek($event->day);
 					$action_name = ($event_id) ? 'Добавление постоянного' : 'Редактирование постоянного';
 					$log = "{$action_name} события. ID:{$id}. {$event->room}. {$day_week}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 					
 				break;
 				
@@ -263,7 +262,7 @@
 						if ($client->dis > 0) { $discount = "Скидка {$client->dis}%"; }
 						
 						$contact_list = array();
-						if (count($contacts)) {
+						if (cnt($contacts)) {
 							
 							foreach ($contacts as $contact) {
 							
@@ -293,9 +292,9 @@
 						</select>
 						<div class="info" style="display: block;">
 							<?php if ($client->note) { ?><i><?php echo $client->note; ?></i><?php } ?>
-							<?php if (count($contact_list)) { ?>
+							<?php if (cnt($contact_list)) { ?>
 							<p>Контакты</p>
-							<?php echo implode($contact_list, ", "); ?>
+							<?php echo implode(", ", $contact_list); ?>
 							<?php } ?>
 						</div>
 					</div>
@@ -312,7 +311,7 @@
 							// Оборудование
 							$equipments = loadObjectList("SELECT * FROM `equipments` WHERE `sid` = {$sid} AND `count` > 0");
 							
-							if (count($equipments)) {
+							if (cnt($equipments)) {
 								
 								// Свободное оборудование
 								$eqs_free = getFreeEqs($equipments, $sid, $day, $start, $event->end, true);
@@ -380,7 +379,7 @@
 					// Журнал
 					$day_week = getDayWeek($event->day);
 					$log = "Удаление постоянного события. ID:{$id}. {$event->room}. {$day_week}, {$event->start}:00 - {$event->end}:00. Клиент: {$event->client} [id:{$event->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 				
 				break;
 			}
@@ -403,7 +402,7 @@
 					// Оборудование
 					$equipments = loadObjectList("SELECT * FROM `equipments` WHERE `sid` = {$sid} AND `count` > 0");
 					
-					if (count($equipments)) {
+					if (cnt($equipments)) {
 					
 						$eqs_free = getFreeEqs($equipments, $sid, $day, $start, $end, true);
 					

@@ -11,7 +11,7 @@
 	<div class="desc" style="margin-bottom: 30px;"><h1>Последние события</h1></div>
 	<div id="myImageFlow" class="imageflow">
 	<?php
-		if (count($news)) {
+		if (cnt($news)) {
 		foreach ($news as $new) {
 			
 			$new->date = date('d.m.Y в H:i', strtotime($new->addDate));
@@ -29,7 +29,7 @@
 	
 	<div class="list">
 	<?php
-		if (count($news)) {
+		if (cnt($news)) {
 		foreach ($news as $new) {
 			
 			$new->date = date('d.m.Y в H:i', strtotime($new->addDate));
@@ -72,7 +72,7 @@
 	<div class="clear" style="height: 30px;"></div>
 
 <?php
-	if (count($news)) {
+	if (cnt($news)) {
 	foreach ($news as $new) {
 		
 		$new->date = date('d.m.Y в H:i', strtotime($new->addDate));

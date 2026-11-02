@@ -142,10 +142,10 @@ CREATE TABLE `events` (
   `state` tinyint(1) NOT NULL,
   `repaby` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `cid` (`cid`),
   KEY `state` (`state`),
   KEY `date` (`date`),
-  KEY `rid` (`rid`)
+  KEY `rid` (`rid`),
+  KEY `cid_state_date` (`cid`,`state`,`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -193,7 +193,8 @@ CREATE TABLE `log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `text` text NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `created` (`created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

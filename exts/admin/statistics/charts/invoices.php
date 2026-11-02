@@ -41,7 +41,7 @@
 	}
 	
 	// Отказы
-	$invoices_no = count($invoices) - $invoices_state_0 - $invoices_state_1 - $invoices_state_2 - $invoices_state_3 - $invoices_state_4 - $invoices_state_5;
+	$invoices_no = cnt($invoices) - $invoices_state_0 - $invoices_state_1 - $invoices_state_2 - $invoices_state_3 - $invoices_state_4 - $invoices_state_5;
 	
 	$invoices_dates = array_count_values($invoices_dates);
 	
@@ -107,7 +107,7 @@
 			<div class="part">
 				<div class="label"></div>
 				<div class="name">Всего</div>
-				<div class="value"><?php echo count($invoices); ?></div>
+				<div class="value"><?php echo cnt($invoices); ?></div>
 				<div class="pc">100%</div>
 				<div class="clear"></div>
 			</div>
@@ -145,7 +145,7 @@
 	?>
 	
 	<div class="list">
-	<?php if (count($list)) { ?>
+	<?php if (cnt($list)) { ?>
 		<div class="filter">
 			<div class="w50">№</div>
 			<div class="w200"><a href="javascript:void(0);" onclick="setOrd(<?php echo $id; ?>, 1);">Период</a></div>

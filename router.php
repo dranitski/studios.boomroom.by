@@ -122,6 +122,10 @@
 		
 	}
 	
+	// Только имена папок: без "/" и ".." нельзя выйти за пределы exts/<ext>/<view>
+	if (!preg_match('/^[a-z0-9_]+$/', $getExt)) { $getExt = ''; }
+	if (!preg_match('/^[a-z0-9_]+$/', $getView)) { $getView = ''; }
+	
 	if (file_exists(path."/exts/{$getExt}") and strlen($getExt) > 0) {
 		
 		$ext = $getExt;

@@ -89,7 +89,7 @@
 	
 	$total = 0;
 	
-if (count($debtors)) {
+if (cnt($debtors)) {
 	
 	$n = 1;
 	foreach ($debtors as $debtor) {

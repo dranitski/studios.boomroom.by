@@ -151,6 +151,12 @@
 		return true;
 	}
 	
+	// Журнал действий: текст собирается из данных клиентов и событий, поэтому экранируется здесь
+	function addLog($text) {
+		
+		return runSql("INSERT INTO `log` (`text`) VALUES ('".dbEscape($text)."')");
+	}
+	
 	function insertId() {
 		
 		return mysqli_insert_id($GLOBALS['dbh']);

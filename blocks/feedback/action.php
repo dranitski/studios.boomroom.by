@@ -10,6 +10,12 @@
 	include path.'/functions/user.php';
 	include path.'/functions/messages.php';
 	
+	// Изменять настройки блока может только администратор сайта, отправка форм открыта всем
+	if (getVar('task', 'post') != 'send' and !$user->admin) {
+		header('HTTP/1.1 403 Forbidden');
+		exit;
+	}
+	
 	switch (getVar('task', 'post')) {
 		
 		case 'save':

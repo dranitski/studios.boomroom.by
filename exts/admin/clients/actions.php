@@ -10,8 +10,7 @@
 		// Формируем данные
 		case 'add': case 'edit':
 		
-			$json = getVar('data', 'post', 0, 0);
-			$data = json_decode(stripslashes($json), false);
+			$data = getFormFields('data', false);
 			
 			$fields = array();
 			$contacts = array();
@@ -30,9 +29,20 @@
 			
 			$fields = (object) $fields;
 			
-			foreach ($contact_ids as $n => $id) {
+			foreach ($fields as $k => $v) { $fields->$k = dbEscape($v); }
+			$fields->type = (int) $fields->type;
+			
+			// $contacts_raw - для JSON в clients.contacts, $contacts - экранированы для SQL
+			$contacts_raw = array();
+			foreach ((array) $contact_ids as $n => $cid) {
 				
-				$contacts[] = (object) array('id' => $id, 'name' => $contact_names[$n], 'phone' => $contact_phones[$n], 'email' => $contact_emails[$n], 'vk_id' => $contact_vk_ids[$n], 'vk_addr' => $contact_vk_addrs[$n]);
+				$contact = array('id' => (int) $cid);
+				foreach (array('name' => $contact_names, 'phone' => $contact_phones, 'email' => $contact_emails, 'vk_id' => $contact_vk_ids, 'vk_addr' => $contact_vk_addrs) as $k => $values) {
+					$contact[$k] = isset($values[$n]) ? $values[$n] : '';
+				}
+				
+				$contacts_raw[] = (object) $contact;
+				$contacts[] = (object) array_map(function ($v) { return is_int($v) ? $v : dbEscape($v); }, $contact);
 			}
 			
 			// Информация о клиенте
@@ -62,7 +72,7 @@
 			}
 			
 			// Контакты
-			if (count($contacts) and $id) {
+			if (cnt($contacts) and $id) {
 			
 				foreach ($contacts as $contact) {
 				
@@ -91,7 +101,7 @@
 			}
 			
 			$contacts2 = [];
-			foreach ($contacts as $contact) {
+			foreach ($contacts_raw as $contact) {
 				
 				if ($contact->name or $contact->phone or $contact->email or $contact->vk_id or $contact->vk_addr) {
 					
@@ -105,7 +115,7 @@
 				}
 			}
 			
-			$contacts2 = json_encode($contacts2, JSON_UNESCAPED_UNICODE);
+			$contacts2 = dbEscape(json_encode($contacts2, JSON_UNESCAPED_UNICODE));
 			
 			runSql("UPDATE `clients` SET `contacts` = '{$contacts2}' WHERE `id` = {$id}");
 			
@@ -125,7 +135,7 @@
 			runSql("DELETE FROM `clients` WHERE `id` = {$id}");
 			runSql("DELETE FROM `client_contacts` WHERE `cid` = {$id}");
 			toSyncItem(0, 'clients', $id);
-			if (count($contact_ids)) { foreach($contact_ids as $contact_id) { toSyncItem(0, 'client_contacts', $contact_id); } }
+			if (cnt($contact_ids)) { foreach($contact_ids as $contact_id) { toSyncItem(0, 'client_contacts', $contact_id); } }
 			// toSync(4);
 			
 			echo getMsg("Группа удалена", "ok", "location.assign('{$admin}/clients');");

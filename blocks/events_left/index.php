@@ -7,7 +7,7 @@
 
 ?>
 <?php
-	if (count($events)) {
+	if (cnt($events)) {
 	foreach ($events as $event) {
 		
 		$event->date = date('d.m.Y в H:i', strtotime($event->addDate));

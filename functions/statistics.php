@@ -4,6 +4,14 @@
 	
 	function getLabelsCountsList($array, $date_start, $date_end, $group, $return) {
 		
+		$labels = array();
+		$counts = array();
+		
+		// цикл ниже идет по дням до $date_end: при обратном или некорректном периоде он бесконечен
+		if (!strtotime($date_start) or !strtotime($date_end) or strtotime($date_start) > strtotime($date_end)) {
+			return array();
+		}
+		
 		while ($date_this != $date_end) {
 			
 			$date_this = ($date_this) ? date('d.m.Y', strtotime("{$date_this} + 1 day")) : $date_start;
@@ -98,7 +106,7 @@
 	
 		$sums = array();
 		
-		if (count($invoices)) {
+		if (cnt($invoices)) {
 		
 			foreach ($invoices as $n=> $invoice) {
 			
@@ -121,7 +129,7 @@
 						
 						$items = loadObjectList("SELECT * FROM `invoice_items` WHERE `inid` = {$invoice->id}");
 						
-						if (count($items)) { 
+						if (cnt($items)) { 
 							
 							$sum_kr = 0;
 							

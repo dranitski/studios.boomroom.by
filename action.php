@@ -5,6 +5,9 @@
 	// Настройки
 	include 'config.php';
 	
+	// Сессия нужна для сообщений redirect() и бронирования по карте
+	session_start();
+	
 	if(siteOn) {
 		
 		// Подключение основных функций
@@ -15,7 +18,7 @@
 		$ext	= getVar('ext', 'post');
 		
 		// Подключение контроллера
-		if ($ext) {
+		if (preg_match('/^[a-z0-9_]+$/', $ext)) {
 			
 			if (file_exists(path."/exts/{$ext}/controller.php")) {
 			

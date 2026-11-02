@@ -92,7 +92,7 @@
 			<div id="persons">
 			
 				<?php
-				if (count($params->persons)) {
+				if (cnt($params->persons)) {
 				foreach ($params->persons as $n => $person) {
 				?>
 				<div class="box">

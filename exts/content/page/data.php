@@ -16,7 +16,7 @@
 	
 	$subPages = loadObjectList($sql);
 	
-	if (count($subPages)) {
+	if (cnt($subPages)) {
 		
 		foreach ($subPages as $subPage) {
 			
@@ -28,7 +28,7 @@
 		
 			$pages = loadObjectList($sql);
 			
-			if(count($pages)) {
+			if(cnt($pages)) {
 				
 				$subPage->pages = $pages;
 			}

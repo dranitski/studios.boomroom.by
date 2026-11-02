@@ -27,7 +27,7 @@
 			
 			$event_weekly = loadObjectList("SELECT * FROM `event_weekly` WHERE `day` = {$w} AND `rid` != 10 AND `rid` != 11");
 			
-			if (count($event_weekly)) {
+			if (cnt($event_weekly)) {
 				
 				$sync = false;
 				foreach ($event_weekly as $event) {
@@ -54,7 +54,7 @@
 					foreach ($fields as $name => $value) { $sql .= ", `{$name}`"; }
 					// $sql .= ") VALUES ('{$Ymd}', 2";
 					$sql .= ") VALUES ('{$Ymd}'";
-					foreach ($fields as $name => $value) { $sql .= ", '{$value}'"; }
+					foreach ($fields as $name => $value) { $sql .= ", '".dbEscape($value)."'"; }
 					$sql .= ")";
 					
 					runSql($sql); $id = insertId();
@@ -63,7 +63,7 @@
 					$event_new = loadObject("SELECT a.*, (SELECT `name` FROM `clients` WHERE `id` = a.`cid`) AS `client`, (SELECT `name` FROM `rooms` WHERE `id` = a.`rid`) AS `room` FROM `events` AS a WHERE a.`id` = {$id}");
 					$date = date('d.m.Y', strtotime($event_new->date));
 					$log = "Добавление события из постоянки. ID:{$id}. {$event_new->room}. {$date}, {$event_new->start}:00 - {$event_new->end}:00. Клиент: {$event_new->client} [id:{$event_new->cid}]";
-					runSql("INSERT INTO `log` (`text`) VALUES ('{$log}')");
+					addLog($log);
 					
 					$sync = true;
 				}
@@ -81,7 +81,7 @@
 			// Прошедшие ночные события
 			$night_events = loadObjectList("SELECT `id`, `date`, `start`, `end`, (SELECT `min` FROM `rooms` WHERE `id` = `rid`) AS `min`  FROM `events` WHERE `date` < '{$Ymd}' AND `start` = 23 AND `state` < 2");
 			
-			if (count($night_events)) {
+			if (cnt($night_events)) {
 				
 				foreach ($night_events as $event) {
 					
@@ -97,7 +97,7 @@
 			// Начавшиеся и прошедшие сегодняшние события
 			$events = loadObjectList("SELECT *, (SELECT `min` FROM `rooms` WHERE `id` = `rid`) AS `min`  FROM `events` WHERE `date` = '{$Ymd}' AND `start` <= {$G} AND `state` < 2");
 			
-			if (count($events)) {
+			if (cnt($events)) {
 				
 				foreach($events as $event) {
 					

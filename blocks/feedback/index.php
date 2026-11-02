@@ -5,10 +5,10 @@
 	include_once path."/blocks/feedback/data.php";
 ?>
 
-<?php if($_GET['result']) { ?>
-<div id="sendResult" class="sr_<?php echo $_GET['result']; ?>">
-	<?php if ($_GET['result'] == "ok") { ?>Спасибо за Ваше сообщение!<?php } ?>
-	<?php if ($_GET['result'] == "no") { ?>Ошибка отправки сообщения! Попробуйте позже.<?php } ?>
+<?php $result = isset($_GET['result']) ? $_GET['result'] : ''; if (in_array($result, array('ok', 'no'), true)) { ?>
+<div id="sendResult" class="sr_<?php echo $result; ?>">
+	<?php if ($result == "ok") { ?>Спасибо за Ваше сообщение!<?php } ?>
+	<?php if ($result == "no") { ?>Ошибка отправки сообщения! Попробуйте позже.<?php } ?>
 </div>
 <?php } ?>
 

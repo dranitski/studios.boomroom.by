@@ -67,7 +67,7 @@
 								<div class="label pl-a"></div>
 								<div class="name">Будущие</div>
 								<div class="value"><?php echo $events_state_0; ?></div>
-								<div class="pc"><?php echo round($events_state_0 / array_sum($counts) * 100); ?>%</div>
+								<div class="pc"><?php echo round($events_state_0 / max(1, array_sum((array) $counts)) * 100); ?>%</div>
 								<div class="clear"></div>
 							</div>
 							
@@ -75,7 +75,7 @@
 								<div class="label pl-d"></div>
 								<div class="name">Идет сейчас</div>
 								<div class="value"><?php echo $events_state_1; ?></div>
-								<div class="pc"><?php echo round($events_state_1 / array_sum($counts) * 100); ?>%</div>
+								<div class="pc"><?php echo round($events_state_1 / max(1, array_sum((array) $counts)) * 100); ?>%</div>
 								<div class="clear"></div>
 							</div>
 							
@@ -83,7 +83,7 @@
 								<div class="label pl-f"></div>
 								<div class="name">Прошедшие</div>
 								<div class="value"><?php echo $events_state_2; ?></div>
-								<div class="pc"><?php echo round($events_state_2 / array_sum($counts) * 100); ?>%</div>
+								<div class="pc"><?php echo round($events_state_2 / max(1, array_sum((array) $counts)) * 100); ?>%</div>
 								<div class="clear"></div>
 							</div>
 							
@@ -91,14 +91,14 @@
 								<div class="label pl-c"></div>
 								<div class="name">Неподтвержденные</div>
 								<div class="value"><?php echo $events_state_3; ?></div>
-								<div class="pc"><?php echo round($events_state_3 / array_sum($counts) * 100); ?>%</div>
+								<div class="pc"><?php echo round($events_state_3 / max(1, array_sum((array) $counts)) * 100); ?>%</div>
 								<div class="clear"></div>
 							</div>
 							
 							<div class="part">
 								<div class="label"></div>
 								<div class="name">Всего</div>
-								<div class="value"><?php echo count($events); ?></div>
+								<div class="value"><?php echo cnt($events); ?></div>
 								<div class="pc">100%</div>
 								<div class="clear"></div>
 							</div>
@@ -136,7 +136,7 @@
 					?>
 					
 					<div class="list">
-					<?php if (count($list)) { ?>
+					<?php if (cnt($list)) { ?>
 						<div class="filter">
 							<div class="w50">№</div>
 							<div class="w200"><a href="javascript:void(0);" onclick="setOrd(<?php echo $id; ?>, 1);">Период</a></div>
@@ -154,7 +154,7 @@
 						<div class="result">
 							<div class="label">Всего</div>
 							<div class="date">с <?php echo $date_start; ?> по <?php echo $date_end; ?></div>
-							<div class="sum"><?php echo array_sum($counts);?></div>
+							<div class="sum"><?php echo array_sum((array) $counts);?></div>
 							<div class="clear"></div>
 						</div>
 					<?php } ?>	
@@ -209,7 +209,7 @@
 
 						new Chartist.Pie('#ch<?php echo $id; ?> .pie', data, {
 							labelInterpolationFnc: function(value) {
-								return Math.round(value / <?php echo count($events); ?> * 100) + '%';
+								return Math.round(value / <?php echo cnt($events); ?> * 100) + '%';
 								// return Math.round(value / data.series.reduce(sum) * 100) + '%';
 								// return value;
 							}
@@ -284,8 +284,8 @@
 							<div class="part">
 								<div class="label pl-<?php echo $char; ?>"></div>
 								<div class="name"><?php echo $studio->name; ?></div>
-								<div class="value"><?php echo array_sum($counts[$studio->id]); ?></div>
-								<div class="pc"><?php echo round(array_sum($counts[$studio->id]) / count($events) * 100); ?>%</div>
+								<div class="value"><?php echo array_sum((array) $counts[$studio->id]); ?></div>
+								<div class="pc"><?php echo round(array_sum((array) $counts[$studio->id]) / max(1, cnt((array) $events)) * 100); ?>%</div>
 								<div class="clear"></div>
 							</div>
 						<?php } ?>
@@ -293,7 +293,7 @@
 							<div class="part">
 								<div class="label"></div>
 								<div class="name">Всего</div>
-								<div class="value"><?php echo count($events); ?></div>
+								<div class="value"><?php echo cnt($events); ?></div>
 								<div class="pc">100%</div>
 								<div class="clear"></div>
 							</div>
@@ -339,7 +339,7 @@
 							<div class="label">Всего</div>
 							<div class="date">с <?php echo $date_start; ?> по <?php echo $date_end; ?></div>
 							<?php foreach ($studios as $studio) { ?>
-							<div class="sum w200"><?php echo array_sum($counts[$studio->id]); ?></div>
+							<div class="sum w200"><?php echo array_sum((array) $counts[$studio->id]); ?></div>
 							<?php } ?>
 							<div class="clear"></div>
 						</div>
@@ -355,7 +355,7 @@
 								<div class="label pl-a"></div>
 								<div class="name">Будущие</div>
 								<div class="value"><?php echo $events_state_0[$studio->id]; ?></div>
-								<div class="pc"><?php echo ($events_state_0[$studio->id]) ? round($events_state_0[$studio->id] / array_sum($counts[$studio->id]) * 100) : 0; ?>%</div>
+								<div class="pc"><?php echo ($events_state_0[$studio->id]) ? round($events_state_0[$studio->id] / max(1, array_sum((array) $counts[$studio->id])) * 100) : 0; ?>%</div>
 								<div class="clear"></div>
 							</div>
 							
@@ -363,7 +363,7 @@
 								<div class="label pl-d"></div>
 								<div class="name">Идет сейчас</div>
 								<div class="value"><?php echo $events_state_1[$studio->id]; ?></div>
-								<div class="pc"><?php echo ($events_state_1[$studio->id]) ? round($events_state_1[$studio->id] / array_sum($counts[$studio->id]) * 100) : 0; ?>%</div>
+								<div class="pc"><?php echo ($events_state_1[$studio->id]) ? round($events_state_1[$studio->id] / max(1, array_sum((array) $counts[$studio->id])) * 100) : 0; ?>%</div>
 								<div class="clear"></div>
 							</div>
 							
@@ -371,7 +371,7 @@
 								<div class="label pl-f"></div>
 								<div class="name">Прошедшие</div>
 								<div class="value"><?php echo $events_state_2[$studio->id]; ?></div>
-								<div class="pc"><?php echo ($events_state_2[$studio->id]) ? round($events_state_2[$studio->id] / array_sum($counts[$studio->id]) * 100) : 0; ?>%</div>
+								<div class="pc"><?php echo ($events_state_2[$studio->id]) ? round($events_state_2[$studio->id] / max(1, array_sum((array) $counts[$studio->id])) * 100) : 0; ?>%</div>
 								<div class="clear"></div>
 							</div>
 							
@@ -379,14 +379,14 @@
 								<div class="label pl-c"></div>
 								<div class="name">Неподтвержденные</div>
 								<div class="value"><?php echo $events_state_3[$studio->id]; ?></div>
-								<div class="pc"><?php echo ($events_state_3[$studio->id]) ? round($events_state_3[$studio->id] / array_sum($counts[$studio->id]) * 100) : 0; ?>%</div>
+								<div class="pc"><?php echo ($events_state_3[$studio->id]) ? round($events_state_3[$studio->id] / max(1, array_sum((array) $counts[$studio->id])) * 100) : 0; ?>%</div>
 								<div class="clear"></div>
 							</div>
 							
 							<div class="part">
 								<div class="label"></div>
 								<div class="name">Всего</div>
-								<div class="value"><?php echo array_sum($counts[$studio->id]); ?></div>
+								<div class="value"><?php echo array_sum((array) $counts[$studio->id]); ?></div>
 								<div class="pc">100%</div>
 								<div class="clear"></div>
 							</div>
@@ -417,7 +417,7 @@
 						// Доли
 						var data = {
 							series: [<?php foreach ($studios as $n => $studio) { if ($n != 0) { echo ", "; } ?>
-								<?php echo array_sum($counts[$studio->id]); ?>
+								<?php echo array_sum((array) $counts[$studio->id]); ?>
 							<?php } ?>]
 						};
 
@@ -425,7 +425,7 @@
 
 						new Chartist.Pie('#ch<?php echo $id; ?> .pie', data, {
 							labelInterpolationFnc: function(value) {
-								return Math.round(value / <?php echo count($events); ?> * 100) + '%';
+								return Math.round(value / <?php echo cnt($events); ?> * 100) + '%';
 							}
 						});
 						
@@ -458,7 +458,7 @@
 
 						new Chartist.Pie('#ch<?php echo $id; ?> .pie<?php echo $studio->id?>', data, {
 							labelInterpolationFnc: function(value) {
-								return Math.round(value / <?php echo array_sum($counts[$studio->id]); ?> * 100) + '%';
+								return Math.round(value / <?php echo array_sum((array) $counts[$studio->id]); ?> * 100) + '%';
 								// return value;
 							}
 						});

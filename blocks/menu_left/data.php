@@ -56,7 +56,7 @@
 		);
 	}
 	
-	if(count($subPages)) {
+	if(cnt($subPages)) {
 	
 		foreach ($subPages as $page) {
 			
@@ -65,7 +65,7 @@
 			
 			$active = (substr($_SERVER['REQUEST_URI'], 1) == $page->link) ? true : false;
 			
-			if(count($page->pages)) {
+			if(cnt($page->pages)) {
 			
 				foreach ($page->pages as $subPage) {
 					

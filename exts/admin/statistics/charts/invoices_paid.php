@@ -48,7 +48,7 @@
 	}
 	
 	$invoices_dates = array_count_values($invoices_dates);
-	if (count($invoices_dates_exp)) { $invoices_dates_exp = array_count_values($invoices_dates_exp); }
+	if (cnt($invoices_dates_exp)) { $invoices_dates_exp = array_count_values($invoices_dates_exp); }
 	
 	$labels	= getLabelsCountsList($invoices_dates, $date_start, $date_end, $group, 1);
 	$counts	= getLabelsCountsList($invoices_dates, $date_start, $date_end, $group, 2);

@@ -2,9 +2,19 @@
 	
 	defined('access') or die ('no access');
 	
+	// count() как в PHP 5.6/7: null -> 0, скаляр -> 1 (PHP 8 бросает TypeError, а код повсюду считает результаты запросов, которые могут быть null)
+	function cnt($value) {
+		
+		if (is_array($value) or $value instanceof Countable) {
+			return count($value);
+		}
+		
+		return ($value === null) ? 0 : 1;
+	}
+	
 	function getVar($name, $method, $html = 1, $sql = 0) {
 		
-		switch ($method)
+		switch (strtoupper($method))
 		{
 			case 'GET' :
 				$input = &$_GET;
@@ -29,11 +39,14 @@
 				break;
 		}
 		
-		$var = isset($input[$name]) ? trim($input[$name]) : "";
+		// массивы (x[]=1) не принимаются
+		$var = (isset($input[$name]) and is_scalar($input[$name])) ? trim((string) $input[$name]) : "";
 		
 		if ($html) {
 			$var = strip_tags($var);
-			$var = htmlspecialchars($var);
+			// ENT_QUOTES и замена "\" на сущность делают значение безопасным внутри '...' в SQL
+			$var = htmlspecialchars($var, ENT_QUOTES, 'UTF-8');
+			$var = str_replace('\\', '&#92;', $var);
 		}
 		
 		if ($sql) {
@@ -42,6 +55,59 @@
 		
 		return $var;
 		
+	}
+	
+	// Оборудование события из POST: JSON [{"id":N,"count":N}], только целые числа
+	function getEqs($name = 'eqs') {
+		
+		$data = json_decode(getVar($name, 'post', 0, 0));
+		
+		$eqs = array();
+		if (is_array($data)) {
+			foreach ($data as $eq) {
+				if (is_object($eq) and isset($eq->id, $eq->count) and (int) $eq->id > 0 and (int) $eq->count > 0) {
+					$eqs[] = array('id' => (int) $eq->id, 'count' => (int) $eq->count);
+				}
+			}
+		}
+		
+		return json_encode($eqs);
+	}
+	
+	// Поля формы из POST: JSON [{"name":..,"value":..}] (jQuery serializeArray); $sql - экранировать значения для SQL
+	function getFormFields($name = 'data', $sql = true) {
+		
+		$data = json_decode(getVar($name, 'post', 0, 0));
+		
+		$fields = array();
+		if (is_array($data)) {
+			foreach ($data as $field) {
+				if (is_object($field) and isset($field->name) and is_scalar($field->name)) {
+					$value = (isset($field->value) and is_scalar($field->value)) ? (string) $field->value : '';
+					$fields[] = (object) array('name' => (string) $field->name, 'value' => $sql ? dbEscape($value) : $value);
+				}
+			}
+		}
+		
+		return $fields;
+	}
+	
+	// Уведомление repa.by об изменении расписания; короткий таймаут, чтобы недоступный repa.by не держал PHP-воркер
+	function repaNotify($url) {
+		
+		// сессия заблокирована до конца запроса: освобождаем ее, чтобы другие вкладки админа не ждали repa.by
+		if (session_status() == PHP_SESSION_ACTIVE) {
+			session_write_close();
+		}
+		
+		$context = stream_context_create(array('http' => array('timeout' => 5)));
+		$result = @file_get_contents($url, false, $context);
+		
+		if ($result === false) {
+			error_log("repa.by notify failed: {$url}");
+		}
+		
+		return $result;
 	}
 	
 	function getInt($name, $method) {
@@ -187,7 +253,7 @@
 	
 		$regex = '!src="(.+)"!U';
 		preg_match ($regex, $html, $matches);
-		$srcs = (count($matches)) ? $matches : array();
+		$srcs = (cnt($matches)) ? $matches : array();
 		
 		return str_replace('"', '', str_replace('src="', '', $srcs[0]));
 	}

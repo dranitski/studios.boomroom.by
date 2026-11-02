@@ -86,7 +86,7 @@
 			<div id="slider">
 			
 				<?php
-				if (count($params->slides)) {
+				if (cnt($params->slides)) {
 				foreach ($params->slides as $n => $slide) {
 				?>
 				<div class="box">
